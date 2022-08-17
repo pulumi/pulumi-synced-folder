@@ -1,11 +1,12 @@
 {
-    "name": "@pulumi/xyz",
+    "name": "@pulumi/synced-folder",
     "version": "${VERSION}",
     "scripts": {
-        "build": "tsc"
+        "build": "tsc",
+        "install": "node scripts/install-pulumi-plugin.js resource synced-folder ${VERSION}"
     },
     "dependencies": {
-        "@pulumi/aws": "^4.0.0"
+        "@pulumi/aws": "^5.0.0"
     },
     "devDependencies": {
         "typescript": "^3.7.0"

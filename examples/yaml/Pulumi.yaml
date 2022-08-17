@@ -1,0 +1,25 @@
+name: synced-folder-example-yaml
+runtime: yaml
+description: An example of using the synced-folder component in YAML.
+
+resources:
+
+  my-bucket:
+    type: aws:s3:Bucket
+    properties:
+      acl: public-read
+      forceDestroy: true
+      website:
+        indexDocument: index.html
+        errorDocument: error.html
+
+  my-synced-folder:
+    type: synced-folder:index:S3BucketFolder
+    properties:
+      path: ./site
+      bucketName: ${my-bucket.bucket}
+      acl: ${my-bucket.acl}
+      manageObjects: false
+
+outputs:
+  url: http://${my-bucket.websiteEndpoint}

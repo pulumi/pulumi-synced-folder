@@ -1,30 +1,54 @@
 {
-    "name": "xyz",
+    "name": "synced-folder",
     "resources": {
-        "xyz:index:StaticPage": {
+        "synced-folder:index:S3BucketFolder": {
             "isComponent": true,
             "inputProperties": {
-                "indexContent": {
+                "path": {
                     "type": "string",
-                    "description": "The HTML content for index.html."
+                    "description": "The relative path to the folder you want to sync from."
+                },
+                "bucketName": {
+                    "type": "string",
+                    "description": "The name of the cloud storage bucket to sync to."
+                },
+                "acl": {
+                    "type": "string",
+                    "description": "The AWS S3 permissions to apply to synced objects."
+                },
+                "manageObjects": {
+                    "type": "boolean",
+                    "description": "Whether to track individual bucket objects with Pulumi. Default is true."
                 }
             },
             "requiredInputs": [
-                "indexContent"
+                "path",
+                "bucketName",
+                "acl"
             ],
             "properties": {
-                "bucket": {
-                    "$ref": "/aws/v4.0.0/schema.json#/resources/aws:s3%2Fbucket:Bucket",
-                    "description": "The bucket resource."
-                },
-                "websiteUrl": {
+                "path": {
                     "type": "string",
-                    "description": "The website URL."
+                    "description": "The relative path to the folder you want to sync from."
+                },
+                "bucketName": {
+                    "type": "string",
+                    "description": "The name of the cloud storage bucket to sync to."
+                },
+                "acl": {
+                    "type": "string",
+                    "description": "The AWS S3 permissions to apply to synced objects."
+                },
+                "manageObjects": {
+                    "type": "boolean",
+                    "description": "Whether to track individual bucket objects with Pulumi. Default is true."
                 }
             },
             "required": [
-                "bucket",
-                "websiteUrl"
+                "path",
+                "bucketName",
+                "acl",
+                "manageObjects"
             ]
         }
     },
@@ -38,7 +62,7 @@
         },
         "go": {
             "generateResourceContainerTypes": true,
-            "importBasePath": "github.com/pulumi/pulumi-xyz/sdk/go/xyz",
+            "importBasePath": "github.com/pulumi/pulumi-synced-folder/sdk/go/synced-folder",
             "respectSchemaVersion": true
         },
         "nodejs": {
