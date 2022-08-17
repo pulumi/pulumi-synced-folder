@@ -28,7 +28,7 @@ resources:
       path: ./site
       bucketName: ${my-bucket.bucket}
       acl: ${my-bucket.acl}
-      manageObjects: false # The default, which manages objects as aws.s3.BucketObjects. When false, files are synced with aws s3 sync.
+      manageObjects: true # The default, which manages objects as aws.s3.BucketObjects. When false, files are synced with aws s3 sync.
 
 outputs:
   url: http://${my-bucket.websiteEndpoint}
