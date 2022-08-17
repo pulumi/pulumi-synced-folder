@@ -9,18 +9,18 @@ using Pulumi.Serialization;
 
 namespace Pulumi.SyncedFolder
 {
-    [SyncedFolderResourceType("synced-folder:index:S3BucketFolder")]
-    public partial class S3BucketFolder : Pulumi.ComponentResource
+    [SyncedFolderResourceType("synced-folder:index:GoogleCloudFolder")]
+    public partial class GoogleCloudFolder : Pulumi.ComponentResource
     {
         /// <summary>
-        /// Create a S3BucketFolder resource with the given unique name, arguments, and options.
+        /// Create a GoogleCloudFolder resource with the given unique name, arguments, and options.
         /// </summary>
         ///
         /// <param name="name">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
-        public S3BucketFolder(string name, S3BucketFolderArgs args, ComponentResourceOptions? options = null)
-            : base("synced-folder:index:S3BucketFolder", name, args ?? new S3BucketFolderArgs(), MakeResourceOptions(options, ""), remote: true)
+        public GoogleCloudFolder(string name, GoogleCloudFolderArgs args, ComponentResourceOptions? options = null)
+            : base("synced-folder:index:GoogleCloudFolder", name, args ?? new GoogleCloudFolderArgs(), MakeResourceOptions(options, ""), remote: true)
         {
         }
 
@@ -37,14 +37,8 @@ namespace Pulumi.SyncedFolder
         }
     }
 
-    public sealed class S3BucketFolderArgs : Pulumi.ResourceArgs
+    public sealed class GoogleCloudFolderArgs : Pulumi.ResourceArgs
     {
-        /// <summary>
-        /// The AWS S3 permissions to apply to synced objects.
-        /// </summary>
-        [Input("acl", required: true)]
-        public Input<string> Acl { get; set; } = null!;
-
         /// <summary>
         /// The name of the cloud storage bucket to sync to.
         /// </summary>
@@ -63,7 +57,7 @@ namespace Pulumi.SyncedFolder
         [Input("path", required: true)]
         public Input<string> Path { get; set; } = null!;
 
-        public S3BucketFolderArgs()
+        public GoogleCloudFolderArgs()
         {
         }
     }

@@ -8,51 +8,36 @@ import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
 from . import _utilities
 
-__all__ = ['S3BucketFolderArgs', 'S3BucketFolder']
+__all__ = ['AzureBlobFolderArgs', 'AzureBlobFolder']
 
 @pulumi.input_type
-class S3BucketFolderArgs:
+class AzureBlobFolderArgs:
     def __init__(__self__, *,
-                 acl: pulumi.Input[str],
-                 bucket_name: pulumi.Input[str],
+                 container_name: pulumi.Input[str],
                  path: pulumi.Input[str],
+                 resource_group_name: pulumi.Input[str],
+                 storage_account_name: pulumi.Input[str],
                  managed_objects: Optional[pulumi.Input[bool]] = None):
         """
-        The set of arguments for constructing a S3BucketFolder resource.
-        :param pulumi.Input[str] acl: The AWS S3 permissions to apply to synced objects.
-        :param pulumi.Input[str] bucket_name: The name of the cloud storage bucket to sync to.
+        The set of arguments for constructing a AzureBlobFolder resource.
         :param pulumi.Input[str] path: The relative path to the folder you want to sync from.
         :param pulumi.Input[bool] managed_objects: Whether to track individual bucket objects with Pulumi. Default is true.
         """
-        pulumi.set(__self__, "acl", acl)
-        pulumi.set(__self__, "bucket_name", bucket_name)
+        pulumi.set(__self__, "container_name", container_name)
         pulumi.set(__self__, "path", path)
+        pulumi.set(__self__, "resource_group_name", resource_group_name)
+        pulumi.set(__self__, "storage_account_name", storage_account_name)
         if managed_objects is not None:
             pulumi.set(__self__, "managed_objects", managed_objects)
 
     @property
-    @pulumi.getter
-    def acl(self) -> pulumi.Input[str]:
-        """
-        The AWS S3 permissions to apply to synced objects.
-        """
-        return pulumi.get(self, "acl")
+    @pulumi.getter(name="containerName")
+    def container_name(self) -> pulumi.Input[str]:
+        return pulumi.get(self, "container_name")
 
-    @acl.setter
-    def acl(self, value: pulumi.Input[str]):
-        pulumi.set(self, "acl", value)
-
-    @property
-    @pulumi.getter(name="bucketName")
-    def bucket_name(self) -> pulumi.Input[str]:
-        """
-        The name of the cloud storage bucket to sync to.
-        """
-        return pulumi.get(self, "bucket_name")
-
-    @bucket_name.setter
-    def bucket_name(self, value: pulumi.Input[str]):
-        pulumi.set(self, "bucket_name", value)
+    @container_name.setter
+    def container_name(self, value: pulumi.Input[str]):
+        pulumi.set(self, "container_name", value)
 
     @property
     @pulumi.getter
@@ -67,6 +52,24 @@ class S3BucketFolderArgs:
         pulumi.set(self, "path", value)
 
     @property
+    @pulumi.getter(name="resourceGroupName")
+    def resource_group_name(self) -> pulumi.Input[str]:
+        return pulumi.get(self, "resource_group_name")
+
+    @resource_group_name.setter
+    def resource_group_name(self, value: pulumi.Input[str]):
+        pulumi.set(self, "resource_group_name", value)
+
+    @property
+    @pulumi.getter(name="storageAccountName")
+    def storage_account_name(self) -> pulumi.Input[str]:
+        return pulumi.get(self, "storage_account_name")
+
+    @storage_account_name.setter
+    def storage_account_name(self, value: pulumi.Input[str]):
+        pulumi.set(self, "storage_account_name", value)
+
+    @property
     @pulumi.getter(name="managedObjects")
     def managed_objects(self) -> Optional[pulumi.Input[bool]]:
         """
@@ -79,22 +82,21 @@ class S3BucketFolderArgs:
         pulumi.set(self, "managed_objects", value)
 
 
-class S3BucketFolder(pulumi.ComponentResource):
+class AzureBlobFolder(pulumi.ComponentResource):
     @overload
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 acl: Optional[pulumi.Input[str]] = None,
-                 bucket_name: Optional[pulumi.Input[str]] = None,
+                 container_name: Optional[pulumi.Input[str]] = None,
                  managed_objects: Optional[pulumi.Input[bool]] = None,
                  path: Optional[pulumi.Input[str]] = None,
+                 resource_group_name: Optional[pulumi.Input[str]] = None,
+                 storage_account_name: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
-        Create a S3BucketFolder resource with the given unique name, props, and options.
+        Create a AzureBlobFolder resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[str] acl: The AWS S3 permissions to apply to synced objects.
-        :param pulumi.Input[str] bucket_name: The name of the cloud storage bucket to sync to.
         :param pulumi.Input[bool] managed_objects: Whether to track individual bucket objects with Pulumi. Default is true.
         :param pulumi.Input[str] path: The relative path to the folder you want to sync from.
         """
@@ -102,17 +104,17 @@ class S3BucketFolder(pulumi.ComponentResource):
     @overload
     def __init__(__self__,
                  resource_name: str,
-                 args: S3BucketFolderArgs,
+                 args: AzureBlobFolderArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Create a S3BucketFolder resource with the given unique name, props, and options.
+        Create a AzureBlobFolder resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
-        :param S3BucketFolderArgs args: The arguments to use to populate this resource's properties.
+        :param AzureBlobFolderArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
         """
         ...
     def __init__(__self__, resource_name: str, *args, **kwargs):
-        resource_args, opts = _utilities.get_resource_args_opts(S3BucketFolderArgs, pulumi.ResourceOptions, *args, **kwargs)
+        resource_args, opts = _utilities.get_resource_args_opts(AzureBlobFolderArgs, pulumi.ResourceOptions, *args, **kwargs)
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
@@ -121,10 +123,11 @@ class S3BucketFolder(pulumi.ComponentResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 acl: Optional[pulumi.Input[str]] = None,
-                 bucket_name: Optional[pulumi.Input[str]] = None,
+                 container_name: Optional[pulumi.Input[str]] = None,
                  managed_objects: Optional[pulumi.Input[bool]] = None,
                  path: Optional[pulumi.Input[str]] = None,
+                 resource_group_name: Optional[pulumi.Input[str]] = None,
+                 storage_account_name: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         if opts is None:
             opts = pulumi.ResourceOptions()
@@ -137,20 +140,23 @@ class S3BucketFolder(pulumi.ComponentResource):
         else:
             if __props__ is not None:
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
-            __props__ = S3BucketFolderArgs.__new__(S3BucketFolderArgs)
+            __props__ = AzureBlobFolderArgs.__new__(AzureBlobFolderArgs)
 
-            if acl is None and not opts.urn:
-                raise TypeError("Missing required property 'acl'")
-            __props__.__dict__["acl"] = acl
-            if bucket_name is None and not opts.urn:
-                raise TypeError("Missing required property 'bucket_name'")
-            __props__.__dict__["bucket_name"] = bucket_name
+            if container_name is None and not opts.urn:
+                raise TypeError("Missing required property 'container_name'")
+            __props__.__dict__["container_name"] = container_name
             __props__.__dict__["managed_objects"] = managed_objects
             if path is None and not opts.urn:
                 raise TypeError("Missing required property 'path'")
             __props__.__dict__["path"] = path
-        super(S3BucketFolder, __self__).__init__(
-            'synced-folder:index:S3BucketFolder',
+            if resource_group_name is None and not opts.urn:
+                raise TypeError("Missing required property 'resource_group_name'")
+            __props__.__dict__["resource_group_name"] = resource_group_name
+            if storage_account_name is None and not opts.urn:
+                raise TypeError("Missing required property 'storage_account_name'")
+            __props__.__dict__["storage_account_name"] = storage_account_name
+        super(AzureBlobFolder, __self__).__init__(
+            'synced-folder:index:AzureBlobFolder',
             resource_name,
             __props__,
             opts,

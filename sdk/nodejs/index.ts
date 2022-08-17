@@ -5,16 +5,24 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
 // Export members:
+export * from "./azureBlobFolder";
+export * from "./googleCloudFolder";
 export * from "./provider";
 export * from "./s3bucketFolder";
 
 // Import resources to register:
+import { AzureBlobFolder } from "./azureBlobFolder";
+import { GoogleCloudFolder } from "./googleCloudFolder";
 import { S3BucketFolder } from "./s3bucketFolder";
 
 const _module = {
     version: utilities.getVersion(),
     construct: (name: string, type: string, urn: string): pulumi.Resource => {
         switch (type) {
+            case "synced-folder:index:AzureBlobFolder":
+                return new AzureBlobFolder(name, <any>undefined, { urn })
+            case "synced-folder:index:GoogleCloudFolder":
+                return new GoogleCloudFolder(name, <any>undefined, { urn })
             case "synced-folder:index:S3BucketFolder":
                 return new S3BucketFolder(name, <any>undefined, { urn })
             default:

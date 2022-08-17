@@ -28,7 +28,7 @@ resources:
       path: ./site
       bucketName: ${my-bucket.bucket}
       acl: ${my-bucket.acl}
-      manageObjects: false # The default, which manages objects as aws.s3.BucketObjects. When false, files are synced with aws s3 sync.
+      managedObjects: true # The default, which manages objects as aws.s3.BucketObjects. When false, files are synced with aws s3 sync.
 
 outputs:
   url: http://${my-bucket.websiteEndpoint}
@@ -52,7 +52,7 @@ const s3Folder = new synced.S3BucketFolder("s3-folder", {
     path: "./site",
     bucketName: myS3Bucket.bucket,
     acl: "public-read",
-    manageObjects: false,
+    managedObjects: false,
 });
 
 export const url = pulumi.interpolate`http://${myS3Bucket.websiteEndpoint}`;

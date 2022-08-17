@@ -5,6 +5,8 @@
 from . import _utilities
 import typing
 # Export this package's modules as members:
+from .azure_blob_folder import *
+from .google_cloud_folder import *
 from .provider import *
 from .s3_bucket_folder import *
 _utilities.register(
@@ -15,6 +17,8 @@ _utilities.register(
   "mod": "index",
   "fqn": "pulumi_synced_folder",
   "classes": {
+   "synced-folder:index:AzureBlobFolder": "AzureBlobFolder",
+   "synced-folder:index:GoogleCloudFolder": "GoogleCloudFolder",
    "synced-folder:index:S3BucketFolder": "S3BucketFolder"
   }
  }

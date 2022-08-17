@@ -1,4 +1,4 @@
-// Copyright 2016-2021, Pulumi Corporation.
+// Copyright 2016-2022, Pulumi Corporation.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -21,7 +21,7 @@ export interface S3BucketFolderArgs {
     path: string;
     bucketName: string;
     acl: string;
-    manageObjects: boolean;
+    managedObjects?: boolean;
 }
 
 export class S3BucketFolder extends pulumi.ComponentResource { 
@@ -29,37 +29,34 @@ export class S3BucketFolder extends pulumi.ComponentResource {
     constructor(name: string, args: S3BucketFolderArgs, opts?: pulumi.ComponentResourceOptions) {
         super("synced-folder:index:S3BucketFolder", name, args, opts);
 
-        // Set some defaults.
-        args.manageObjects = args.manageObjects !== false;
+        args.managedObjects = args.managedObjects !== false;
+        
+        const contents = utils.getFolderContents(args.path);
 
-        const files = utils.getFiles(args.path);
+        if (args.managedObjects) {
 
-        if (args.manageObjects) {
-
-            files.map(file => {
-                const contentFile = new aws.s3.BucketObject(file.relativePath, {
+            contents.files.map(file => {
+                new aws.s3.BucketObject(file.relativePath, {
                     acl: args.acl,
                     bucket: args.bucketName,
-                    contentType: file.mimeType,
+                    contentType: file.contentType,
                     source: new pulumi.asset.FileAsset(file.fullPath),
-                }, { parent: this });
+                }, { parent: this, retainOnDelete: !args.managedObjects });
             });
         
         } else {
             
             const region = pulumi.output(aws.getRegion());
-            const sync = new command.local.Command("s3-sync", {
-                create: pulumi.interpolate`aws s3 sync ${args.path} s3://${args.bucketName} --acl ${args.acl} --delete --region ${region.name}`,
-                update: pulumi.interpolate`aws s3 sync ${args.path} s3://${args.bucketName} --acl ${args.acl} --delete --region ${region.name}`,
-                delete: pulumi.interpolate`aws s3 sync ${args.path} s3://${args.bucketName} --acl ${args.acl} --delete --region ${region.name}`,
-            }, { parent: this });    
+            const sync = new command.local.Command("sync-command", {
+                create: pulumi.interpolate`aws s3 sync "${args.path}" "s3://${args.bucketName}" --acl "${args.acl}" --region "${region.name}" --delete`,
+                triggers: [
+                    contents.summary.lastModified,
+                ],
+            }, { parent: this, deleteBeforeReplace: true });    
         }
 
         this.registerOutputs({
-            // path: args.path,
-            // bucketName: args.bucketName,
-            // acl: args.acl,
-            // manageObjects: args.manageObjects,
+            
         });
     }
 }

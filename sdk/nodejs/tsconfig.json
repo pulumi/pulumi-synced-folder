@@ -13,6 +13,8 @@
         "strict": true
     },
     "files": [
+        "azureBlobFolder.ts",
+        "googleCloudFolder.ts",
         "index.ts",
         "provider.ts",
         "s3bucketFolder.ts",

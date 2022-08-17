@@ -13,15 +13,6 @@ import (
 
 type S3BucketFolder struct {
 	pulumi.ResourceState
-
-	// The AWS S3 permissions to apply to synced objects.
-	Acl pulumi.StringOutput `pulumi:"acl"`
-	// The name of the cloud storage bucket to sync to.
-	BucketName pulumi.StringOutput `pulumi:"bucketName"`
-	// Whether to track individual bucket objects with Pulumi. Default is true.
-	ManageObjects pulumi.BoolOutput `pulumi:"manageObjects"`
-	// The relative path to the folder you want to sync from.
-	Path pulumi.StringOutput `pulumi:"path"`
 }
 
 // NewS3BucketFolder registers a new resource with the given unique name, arguments, and options.
@@ -54,7 +45,7 @@ type s3bucketFolderArgs struct {
 	// The name of the cloud storage bucket to sync to.
 	BucketName string `pulumi:"bucketName"`
 	// Whether to track individual bucket objects with Pulumi. Default is true.
-	ManageObjects *bool `pulumi:"manageObjects"`
+	ManagedObjects *bool `pulumi:"managedObjects"`
 	// The relative path to the folder you want to sync from.
 	Path string `pulumi:"path"`
 }
@@ -66,7 +57,7 @@ type S3BucketFolderArgs struct {
 	// The name of the cloud storage bucket to sync to.
 	BucketName pulumi.StringInput
 	// Whether to track individual bucket objects with Pulumi. Default is true.
-	ManageObjects pulumi.BoolPtrInput
+	ManagedObjects pulumi.BoolPtrInput
 	// The relative path to the folder you want to sync from.
 	Path pulumi.StringInput
 }

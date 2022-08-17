@@ -20,6 +20,10 @@ func (m *module) Version() semver.Version {
 
 func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi.Resource, err error) {
 	switch typ {
+	case "synced-folder:index:AzureBlobFolder":
+		r = &AzureBlobFolder{}
+	case "synced-folder:index:GoogleCloudFolder":
+		r = &GoogleCloudFolder{}
 	case "synced-folder:index:S3BucketFolder":
 		r = &S3BucketFolder{}
 	default:

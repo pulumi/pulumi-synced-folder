@@ -16,7 +16,7 @@
                     "type": "string",
                     "description": "The AWS S3 permissions to apply to synced objects."
                 },
-                "manageObjects": {
+                "managedObjects": {
                     "type": "boolean",
                     "description": "Whether to track individual bucket objects with Pulumi. Default is true."
                 }
@@ -27,6 +27,52 @@
                 "acl"
             ],
             "properties": {
+                
+            },
+            "required": [
+                
+            ]
+        },
+        "synced-folder:index:AzureBlobFolder": {
+            "isComponent": true,
+            "inputProperties": {
+                "path": {
+                    "type": "string",
+                    "description": "The relative path to the folder you want to sync from."
+                },
+                "storageAccountName": {
+                    "type": "string",
+                    "description": ""
+                },
+                "resourceGroupName": {
+                    "type": "string",
+                    "description": ""
+                },
+                "containerName": {
+                    "type": "string",
+                    "description": ""
+                },
+                "managedObjects": {
+                    "type": "boolean",
+                    "description": "Whether to track individual bucket objects with Pulumi. Default is true."
+                }
+            },
+            "requiredInputs": [
+                "path",
+                "storageAccountName",
+                "resourceGroupName",
+                "containerName"
+            ],
+            "properties": {
+                
+            },
+            "required": [
+                
+            ]
+        },
+        "synced-folder:index:GoogleCloudFolder": {
+            "isComponent": true,
+            "inputProperties": {
                 "path": {
                     "type": "string",
                     "description": "The relative path to the folder you want to sync from."
@@ -35,20 +81,20 @@
                     "type": "string",
                     "description": "The name of the cloud storage bucket to sync to."
                 },
-                "acl": {
-                    "type": "string",
-                    "description": "The AWS S3 permissions to apply to synced objects."
-                },
-                "manageObjects": {
+                "managedObjects": {
                     "type": "boolean",
                     "description": "Whether to track individual bucket objects with Pulumi. Default is true."
                 }
             },
-            "required": [
+            "requiredInputs": [
                 "path",
-                "bucketName",
-                "acl",
-                "manageObjects"
+                "bucketName"
+            ],
+            "properties": {
+                
+            },
+            "required": [
+                
             ]
         }
     },

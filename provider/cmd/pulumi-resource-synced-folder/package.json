@@ -3,7 +3,9 @@
     "bin": "bin/index.js",
     "dependencies": {
         "@pulumi/aws": "^4.0.0",
+        "@pulumi/azure-native": "^1.68.2",
         "@pulumi/command": "^0.4.1",
+        "@pulumi/gcp": "^6.32.0",
         "@pulumi/pulumi": "^3.34.1",
         "@types/glob": "^7.2.0",
         "@types/mime": "^3.0.1",

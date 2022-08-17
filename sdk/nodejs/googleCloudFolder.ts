@@ -4,61 +4,53 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
-export class S3BucketFolder extends pulumi.ComponentResource {
+export class GoogleCloudFolder extends pulumi.ComponentResource {
     /** @internal */
-    public static readonly __pulumiType = 'synced-folder:index:S3BucketFolder';
+    public static readonly __pulumiType = 'synced-folder:index:GoogleCloudFolder';
 
     /**
-     * Returns true if the given object is an instance of S3BucketFolder.  This is designed to work even
+     * Returns true if the given object is an instance of GoogleCloudFolder.  This is designed to work even
      * when multiple copies of the Pulumi SDK have been loaded into the same process.
      */
-    public static isInstance(obj: any): obj is S3BucketFolder {
+    public static isInstance(obj: any): obj is GoogleCloudFolder {
         if (obj === undefined || obj === null) {
             return false;
         }
-        return obj['__pulumiType'] === S3BucketFolder.__pulumiType;
+        return obj['__pulumiType'] === GoogleCloudFolder.__pulumiType;
     }
 
 
     /**
-     * Create a S3BucketFolder resource with the given unique name, arguments, and options.
+     * Create a GoogleCloudFolder resource with the given unique name, arguments, and options.
      *
      * @param name The _unique_ name of the resource.
      * @param args The arguments to use to populate this resource's properties.
      * @param opts A bag of options that control this resource's behavior.
      */
-    constructor(name: string, args: S3BucketFolderArgs, opts?: pulumi.ComponentResourceOptions) {
+    constructor(name: string, args: GoogleCloudFolderArgs, opts?: pulumi.ComponentResourceOptions) {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
-            if ((!args || args.acl === undefined) && !opts.urn) {
-                throw new Error("Missing required property 'acl'");
-            }
             if ((!args || args.bucketName === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'bucketName'");
             }
             if ((!args || args.path === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'path'");
             }
-            resourceInputs["acl"] = args ? args.acl : undefined;
             resourceInputs["bucketName"] = args ? args.bucketName : undefined;
             resourceInputs["managedObjects"] = args ? args.managedObjects : undefined;
             resourceInputs["path"] = args ? args.path : undefined;
         } else {
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
-        super(S3BucketFolder.__pulumiType, name, resourceInputs, opts, true /*remote*/);
+        super(GoogleCloudFolder.__pulumiType, name, resourceInputs, opts, true /*remote*/);
     }
 }
 
 /**
- * The set of arguments for constructing a S3BucketFolder resource.
+ * The set of arguments for constructing a GoogleCloudFolder resource.
  */
-export interface S3BucketFolderArgs {
-    /**
-     * The AWS S3 permissions to apply to synced objects.
-     */
-    acl: pulumi.Input<string>;
+export interface GoogleCloudFolderArgs {
     /**
      * The name of the cloud storage bucket to sync to.
      */
