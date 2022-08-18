@@ -24,14 +24,15 @@ go get -t github.com/pulumi/pulumi-synced-folder/sdk/go/synced-folder
 
 ## Using the component
 
-Given a cloud-storage bucket and the path to a local folder, the component synchronizes files from the folder to the bucket, deleting any files in the destination bucket that don't exist in the local folder. It does this in one of two configurable ways:
+Given a cloud-storage bucket and the path to a local folder, the component synchronizes files from the folder to the bucket, deleting any files in the destination bucket that don't exist locally. It does this in one of two configurable ways:
 
-* With Pulumi managing each file as an individual Pulumi resource (e.g., an `aws.s3.BucketObject`, `azure.storage.Blob`, or `gcp.storage.BucketObject`)
-* With Pulumi not managing any files individually, but instead leaving the management of those folder contents to the cloud provider CLI (e.g., `aws`, `az`, or `gloud`)
+* With Pulumi managing each file as an individual Pulumi resource (e.g., an `aws.s3.BucketObject`, `azure.storage.Blob`, or `gcp.storage.BucketObject`). This is how the component behaves by default.
 
-The former approach (having Pulumi manage your resources for you) is generally preferable, but in sitations, for example websites containing thousands of files, you may prefer to handle this yourself. This component is designed to make that as easy as possible without requiring you to run a separate process outside of your Pulumi workflow.
+* With Pulumi not managing any files individually, and instead delegating the responsibility of synchronization to the cloud provider CLI (e.g., the `aws`, `az`, or `gloud` tools respectively). This behavior is enabled by the `managedObjects` input property. 
 
-Below are a few examples in Pulumi YAML. See the [examples](./examples) folder for additional languages and scenarios.
+The former approach &mdash; having Pulumi manage your resources for you &mdash; is generally safer and therefore preferable, but in some situations, for example a website containing thousands of files, it may not be the best fit. This component lets you choose the approach best suited to your use case without having to break out of your Pulumi program or workflow.
+
+Below are a few examples in Pulumi YAML, each of which assumes the existence of a `site` folder containing one or more files to be uploaded. See the [examples](./examples) folder for additional languages and scenarios.
 
 ### Sync the contents of a folder to Amazon S3
 
