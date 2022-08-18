@@ -56,5 +56,4 @@ const s3Folder = new synced.S3BucketFolder("s3-folder", {
 });
 
 export const url = pulumi.interpolate`http://${myS3Bucket.websiteEndpoint}`;
-
 ```

@@ -31,11 +31,14 @@ export class S3BucketFolder extends pulumi.ComponentResource {
 
         args.managedObjects = args.managedObjects !== false;
         
-        const contents = utils.getFolderContents(args.path);
+        const folderContents = utils.getFolderContents(args.path);
+        const region = pulumi.output(aws.getRegion());
+        const syncCommand = pulumi.interpolate`aws s3 sync "${args.path}" "s3://${args.bucketName}" --acl "${args.acl}" --region "${region.name}" --delete --only-show-errors`;
+        const deleteCommand = pulumi.interpolate`aws s3 rm "s3://${args.bucketName}" --include "*" --recursive --only-show-errors`;
 
         if (args.managedObjects) {
 
-            contents.files.map(file => {
+            folderContents.files.map(file => {
                 new aws.s3.BucketObject(file.relativePath, {
                     acl: args.acl,
                     bucket: args.bucketName,
@@ -46,13 +49,14 @@ export class S3BucketFolder extends pulumi.ComponentResource {
         
         } else {
             
-            const region = pulumi.output(aws.getRegion());
-            const sync = new command.local.Command("sync-command", {
-                create: pulumi.interpolate`aws s3 sync "${args.path}" "s3://${args.bucketName}" --acl "${args.acl}" --region "${region.name}" --delete`,
-                triggers: [
-                    contents.summary.lastModified,
-                ],
-            }, { parent: this, deleteBeforeReplace: true });    
+            new command.local.Command("sync-command", {
+                create: syncCommand,
+                update:  syncCommand,
+                delete: deleteCommand,
+                environment: {
+                    LAST_MODIFIED: new Date(folderContents.summary.lastModified).toString(),
+                },
+            }, { parent: this });    
         }
 
         this.registerOutputs({

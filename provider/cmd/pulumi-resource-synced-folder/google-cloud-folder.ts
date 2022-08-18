@@ -30,11 +30,13 @@ export class GoogleCloudFolder extends pulumi.ComponentResource {
 
         args.managedObjects = args.managedObjects !== false;
 
-        const contents = utils.getFolderContents(args.path);
+        const folderContents = utils.getFolderContents(args.path);
+        const syncCommand = pulumi.interpolate`gsutil -q rsync -r "${args.path}" "gs://${args.bucketName}"`;
+        const deleteCommand = pulumi.interpolate`gsutil -q rm "gs://${args.bucketName}/**"`;
 
         if (args.managedObjects) {
 
-            contents.files.map(file => {
+            folderContents.files.map(file => {
                 new gcp.storage.BucketObject(file.relativePath, {
                     bucket: args.bucketName,
                     name: file.relativePath,
@@ -45,12 +47,14 @@ export class GoogleCloudFolder extends pulumi.ComponentResource {
         
         } else {
             
-            const sync = new command.local.Command("sync-command", {
-                create: pulumi.interpolate`gsutil rsync -r "${args.path}" "gs://${args.bucketName}"`,
-                triggers: [
-                    contents.summary.lastModified,
-                ],
-            }, { parent: this, deleteBeforeReplace: true });    
+            new command.local.Command("sync-command", {
+                create: syncCommand,
+                update: syncCommand,
+                delete: deleteCommand,
+                environment: {
+                    LAST_MODIFIED: new Date(folderContents.summary.lastModified).toString(),
+                }
+            }, { parent: this });    
         }
 
         this.registerOutputs({

@@ -32,28 +32,32 @@ export class AzureBlobFolder extends pulumi.ComponentResource {
 
         args.managedObjects = args.managedObjects !== false;
 
-        const contents = utils.getFolderContents(args.path);
-
+        const folderContents = utils.getFolderContents(args.path);
+        const syncCommand = pulumi.interpolate`az storage blob sync --source "${args.path}" --account-name "${args.storageAccountName}" --container '${args.containerName}' --delete-destination true --only-show-errors`;
+        const deleteCommand = pulumi.interpolate`az storage blob delete-batch --account-name "${args.storageAccountName}" --source '${args.containerName}' --only-show-errors`;
+        
         if (args.managedObjects) {
 
-            contents.files.map(file => {
+            folderContents.files.map(file => {
                 new storage.Blob(file.relativePath, {
                     accountName: args.storageAccountName,
                     resourceGroupName: args.resourceGroupName,
                     containerName: args.containerName,
                     source: new pulumi.asset.FileAsset(file.fullPath),
                     contentType: file.contentType,
-                }, { parent: this, retainOnDelete: !args.managedObjects });
+                }, { parent: this });
             });
-        
+
         } else {
             
-            const sync = new command.local.Command("sync-command", {
-                create: pulumi.interpolate`az storage blob sync --source "${args.path}" --account-name "${args.storageAccountName}" --container '${args.containerName}' --delete-destination true`,
-                triggers: [
-                    contents.summary.lastModified,
-                ],
-            }, { parent: this, deleteBeforeReplace: true });    
+            new command.local.Command("sync-command", {
+                create: syncCommand,
+                update: syncCommand,
+                delete: deleteCommand,
+                environment: {
+                    LAST_MODIFIED: new Date(folderContents.summary.lastModified).toString(),
+                },
+            }, { parent: this });  
         }
 
         this.registerOutputs({

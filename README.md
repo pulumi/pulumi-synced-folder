@@ -13,7 +13,12 @@ description: An example of using the synced-folder component in YAML.
 
 resources:
 
-  my-bucket:
+  #
+  # Amazon S3 example.
+  #
+
+  # Create an S3 bucket and configure it as a website.
+  s3-bucket:
     type: aws:s3:Bucket
     properties:
       acl: public-read
@@ -22,39 +27,83 @@ resources:
         indexDocument: index.html
         errorDocument: error.html
 
-  my-synced-folder:
+  # Sync the contents of ./site to it, using Pulumi to manage each file as an aws.s3.BucketObject.
+  synced-bucket-folder:
     type: synced-folder:index:S3BucketFolder
     properties:
       path: ./site
-      bucketName: ${my-bucket.bucket}
-      acl: ${my-bucket.acl}
-      managedObjects: true # The default, which manages objects as aws.s3.BucketObjects. When false, files are synced with aws s3 sync.
+      bucketName: ${s3-bucket.bucket}
+      acl: public-read
+
+  #
+  # Azure Blob Storage example.
+  #
+
+  # Create a resource group.
+  resource-group:
+    type: azure-native:resources:ResourceGroup
+
+  # Create a storage account.
+  storage:
+    type: azure-native:storage:StorageAccount
+    properties:
+      resourceGroupName: ${resource-group.name}
+      kind: StorageV2
+      sku:
+        name: Standard_LRS
+
+  # Configure the storage account as a website.
+  website:
+    type: azure-native:storage:StorageAccountStaticWebsite
+    properties:
+      resourceGroupName: ${resource-group.name}
+      accountName: ${storage.name}
+      indexDocument: index.html
+      error404Document: error.html
+
+  # Sync the contents of ./site to the storage container, using the Azure CLI to manage the files outside of Pulumi.
+  synced-azure-blob-folder:
+    type: synced-folder:index:AzureBlobFolder
+    properties:
+      path: ./site
+      resourceGroupName: ${resource-group.name}
+      storageAccountName: ${storage.name}
+      containerName: ${website.containerName}
+      managedObjects: false
+
+  #
+  # Google Cloud Storage example.
+  # 
+
+  # Create a Google Cloud Storage bucket and configure it as a website.
+  gcp-bucket:
+    type: gcp:storage:Bucket
+    properties:
+      location: US
+      forceDestroy: true
+      website:
+        mainPageSuffix: index.html
+        notFoundPage: error.html
+
+  # Configure the bucket for public access.
+  gcp-bucket-iam-binding:
+    type: gcp:storage:BucketIAMBinding
+    properties: 
+      bucket: ${gcp-bucket.name}
+      role: roles/storage.objectViewer
+      members: 
+        - allUsers
+
+  # Sync the contents of ./site to the bucket, using the Google Cloud CLI to manage the files outside of Pulumi.
+  synced-google-cloud-folder:
+    type: synced-folder:index:GoogleCloudFolder
+    properties:
+      path: ./site
+      bucketName: ${gcp-bucket.name}
+      managedObjects: false
 
 outputs:
-  url: http://${my-bucket.websiteEndpoint}
-```
-
-```typescript
-import * as pulumi from "@pulumi/pulumi";
-import * as aws from "@pulumi/aws";
-import * as synced from "@pulumi/synced-folder";
-
-const myS3Bucket = new aws.s3.Bucket("s3-bucket", {
-    acl: "public-read",
-    forceDestroy: true,
-    website: {
-        indexDocument: "index.html",
-        errorDocument: "error.html",
-    },
-});
-
-const s3Folder = new synced.S3BucketFolder("s3-folder", {
-    path: "./site",
-    bucketName: myS3Bucket.bucket,
-    acl: "public-read",
-    managedObjects: false,
-});
-
-export const url = pulumi.interpolate`http://${myS3Bucket.websiteEndpoint}`;
-
+  s3_url: http://${s3-bucket.websiteEndpoint}
+  azure_url: ${storage.primaryEndpoints.web}
+  google_cloud_url: https://storage.googleapis.com/${gcp-bucket.name}/index.html
 ```
