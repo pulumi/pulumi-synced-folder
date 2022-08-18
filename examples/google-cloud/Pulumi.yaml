@@ -1,0 +1,33 @@
+name: synced-folder-examples-google-cloud-yaml
+runtime: yaml
+description: An example of using the synced-folder component in YAML.
+
+resources:
+
+  # Create a Google Cloud Storage bucket and configure it as a website.
+  gcp-bucket:
+    type: gcp:storage:Bucket
+    properties:
+      location: US
+      website:
+        mainPageSuffix: index.html
+        notFoundPage: error.html
+
+  # Configure the bucket for public access.
+  gcp-bucket-iam-binding:
+    type: gcp:storage:BucketIAMBinding
+    properties: 
+      bucket: ${gcp-bucket.name}
+      role: roles/storage.objectViewer
+      members: 
+        - allUsers
+
+  # Sync the contents of the ./site folder to the bucket.
+  synced-google-cloud-folder:
+    type: synced-folder:index:GoogleCloudFolder
+    properties:
+      path: ./site
+      bucketName: ${gcp-bucket.name}
+
+outputs:
+  url: https://storage.googleapis.com/${gcp-bucket.name}/index.html

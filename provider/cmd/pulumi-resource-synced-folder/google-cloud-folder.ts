@@ -31,7 +31,7 @@ export class GoogleCloudFolder extends pulumi.ComponentResource {
         args.managedObjects = args.managedObjects !== false;
 
         const folderContents = utils.getFolderContents(args.path);
-        const syncCommand = pulumi.interpolate`gsutil -q rsync -r "${args.path}" "gs://${args.bucketName}"`;
+        const syncCommand = pulumi.interpolate`gsutil -q -m rsync -r -d "${args.path}" "gs://${args.bucketName}"`;
         const deleteCommand = pulumi.interpolate`gsutil -q rm "gs://${args.bucketName}/**"`;
 
         if (args.managedObjects) {
@@ -42,7 +42,7 @@ export class GoogleCloudFolder extends pulumi.ComponentResource {
                     name: file.relativePath,
                     source: new pulumi.asset.FileAsset(file.fullPath),
                     contentType: file.contentType,
-                }, { parent: this, retainOnDelete: !args.managedObjects });
+                }, { parent: this });
             });
         
         } else {

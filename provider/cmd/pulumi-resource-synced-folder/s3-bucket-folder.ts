@@ -44,7 +44,7 @@ export class S3BucketFolder extends pulumi.ComponentResource {
                     bucket: args.bucketName,
                     contentType: file.contentType,
                     source: new pulumi.asset.FileAsset(file.fullPath),
-                }, { parent: this, retainOnDelete: !args.managedObjects });
+                }, { parent: this });
             });
         
         } else {

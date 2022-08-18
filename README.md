@@ -1,33 +1,59 @@
 # synced-folder
 
-Synchronizes a local folder to Amazon S3, Azure Blob Storage, or Google Cloud Storage.
+A Pulumi component that synchronizes a local folder to Amazon S3, Azure Blob, or Google Cloud Storage.
 
-Still very much 🚧 👷. 
+## Installing the component
 
-## Usage 
+The component is available in all supported Pulumi-supported languages.
+
+```bash
+npm install @pulumi/synced-folder
+```
+
+```bash
+yarn add @pulumi/synced-folder
+```
+
+```bash
+pip install pulumi_synced_folder
+```
+
+```bash
+go get -t github.com/pulumi/pulumi-synced-folder/sdk/go/synced-folder
+```
+
+## Using the component
+
+Given a cloud-storage bucket and the path to a local folder, the component synchronizes files from the folder to the bucket, deleting any files in the destination bucket that don't exist in the local folder. It does this in one of two configurable ways:
+
+* With Pulumi managing each file as an individual Pulumi resource (e.g., an `aws.s3.BucketObject`, `azure.storage.Blob`, or `gcp.storage.BucketObject`)
+* With Pulumi not managing any files individually, but instead leaving the management of those folder contents to the cloud provider CLI (e.g., `aws`, `az`, or `gloud`)
+
+The former approach (having Pulumi manage your resources for you) is generally preferable, but in sitations, for example websites containing thousands of files, you may prefer to handle this yourself. This component is designed to make that as easy as possible without requiring you to run a separate process outside of your Pulumi workflow.
+
+Below are a few examples in Pulumi YAML. See the [examples](./examples) folder for additional languages and scenarios.
+
+### Sync the contents of a folder to Amazon S3
+
+In this example, a local folder, `./site`, is pushed to Amazon S3, and its contents are managed as individual `aws.s3.BucketObject`s in the usual way:
 
 ```yaml
-name: synced-folder-example-yaml
+name: synced-folder-examples-aws-yaml
 runtime: yaml
-description: An example of using the synced-folder component in YAML.
+description: An example of using the synced-folder component.
 
 resources:
-
-  #
-  # Amazon S3 example.
-  #
 
   # Create an S3 bucket and configure it as a website.
   s3-bucket:
     type: aws:s3:Bucket
     properties:
       acl: public-read
-      forceDestroy: true
       website:
         indexDocument: index.html
         errorDocument: error.html
 
-  # Sync the contents of ./site to it, using Pulumi to manage each file as an aws.s3.BucketObject.
+  # Sync the contents of the ./site to the bucket
   synced-bucket-folder:
     type: synced-folder:index:S3BucketFolder
     properties:
@@ -35,15 +61,26 @@ resources:
       bucketName: ${s3-bucket.bucket}
       acl: public-read
 
-  #
-  # Azure Blob Storage example.
-  #
+outputs:
+  url: http://${s3-bucket.websiteEndpoint}
+```
 
-  # Create a resource group.
+### Sync the contents of a folder to Azure Blob Storage
+
+In this example, the folder's contents are synced to an Azure Blob Storage Container, but by way of the Azure CLI (specifically the `az storage blob sync` sommand) by way of the Pulumi Command provider. The optional `managedObjects` property lets you configure this behavior on a folder-by-folder basis.
+
+```yaml
+name: synced-folder-examples-azure-yaml
+runtime: yaml
+description: An example of using the synced-folder component in YAML.
+
+resources:
+
+  # Create an Azure resource group.
   resource-group:
     type: azure-native:resources:ResourceGroup
 
-  # Create a storage account.
+  # Create an Azure Blob Storage account.
   storage:
     type: azure-native:storage:StorageAccount
     properties:
@@ -61,7 +98,9 @@ resources:
       indexDocument: index.html
       error404Document: error.html
 
-  # Sync the contents of ./site to the storage container, using the Azure CLI to manage the files outside of Pulumi.
+  # Sync the contents of ./site to the storage container. Here, rather
+  # than use Pulumi to manage file blobs individually, we use the Pulumi
+  # Command provider and the Azure CLI to manage the files ourselves.
   synced-azure-blob-folder:
     type: synced-folder:index:AzureBlobFolder
     properties:
@@ -71,16 +110,26 @@ resources:
       containerName: ${website.containerName}
       managedObjects: false
 
-  #
-  # Google Cloud Storage example.
-  # 
+outputs:
+  url: ${storage.primaryEndpoints.web}
+```
+
+### Sync the contents of a folder to Google Cloud Storage
+
+In this example, the `./site` folder is synced to Google Cloud Storage.
+
+```yaml
+name: synced-folder-examples-google-cloud-yaml
+runtime: yaml
+description: An example of using the synced-folder component in YAML.
+
+resources:
 
   # Create a Google Cloud Storage bucket and configure it as a website.
   gcp-bucket:
     type: gcp:storage:Bucket
     properties:
       location: US
-      forceDestroy: true
       website:
         mainPageSuffix: index.html
         notFoundPage: error.html
@@ -94,16 +143,13 @@ resources:
       members: 
         - allUsers
 
-  # Sync the contents of ./site to the bucket, using the Google Cloud CLI to manage the files outside of Pulumi.
+  # Sync the contents of the ./site folder to the bucket.
   synced-google-cloud-folder:
     type: synced-folder:index:GoogleCloudFolder
     properties:
       path: ./site
       bucketName: ${gcp-bucket.name}
-      managedObjects: false
 
 outputs:
-  s3_url: http://${s3-bucket.websiteEndpoint}
-  azure_url: ${storage.primaryEndpoints.web}
-  google_cloud_url: https://storage.googleapis.com/${gcp-bucket.name}
+  url: https://storage.googleapis.com/${gcp-bucket.name}/index.html
 ```
