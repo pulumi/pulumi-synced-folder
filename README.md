@@ -105,5 +105,5 @@ resources:
 outputs:
   s3_url: http://${s3-bucket.websiteEndpoint}
   azure_url: ${storage.primaryEndpoints.web}
-  google_cloud_url: https://storage.googleapis.com/${gcp-bucket.name}/index.html
+  google_cloud_url: https://storage.googleapis.com/${gcp-bucket.name}
 ```
