@@ -29,6 +29,7 @@ env:
   PYPI_USERNAME: "pulumi"
   PYPI_REPOSITORY_URL: ""
   PUBLISH_PYPI: true
+  NODE_OPTIONS: "--max-old-space-size=8192"
 jobs:
   publish_binary:
     name: publish
