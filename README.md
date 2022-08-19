@@ -184,7 +184,7 @@ The component does not yet support switching seamlessly between `managedObjects:
 
 resources:
 
-  # The original bucked and synced-folder resources (using managed file objects).
+  # The original bucket and synced-folder resources, using managed file objects.
   # 
   # my-first-bucket:
   #   type: aws:s3:Bucket
@@ -220,6 +220,6 @@ resources:
 
 outputs:
 
-  # A program reference updated to use the new bucket.
+  # An updated program reference pointing to the new bucket.
   url: http://${changed-my-mind-bucket.websiteEndpoint}
 ```
