@@ -52,15 +52,15 @@ export class GoogleCloudFolder extends pulumi.ComponentResource {
  */
 export interface GoogleCloudFolderArgs {
     /**
-     * The name of the cloud storage bucket to sync to.
+     * The name of the Google Cloud Storage bucket to sync to (e.g., `my-bucket` in `gs://my-bucket`). Required.
      */
     bucketName: pulumi.Input<string>;
     /**
-     * Whether to track individual bucket objects with Pulumi. Default is true.
+     * Whether to have Pulumi manage files as individual cloud resources. Defaults to `true`.
      */
     managedObjects?: pulumi.Input<boolean>;
     /**
-     * The relative path to the folder you want to sync from.
+     * The path (relative or fully-qualified) to the folder containing the files to be synced. Required.
      */
     path: pulumi.Input<string>;
 }

@@ -19,10 +19,10 @@ class S3BucketFolderArgs:
                  managed_objects: Optional[pulumi.Input[bool]] = None):
         """
         The set of arguments for constructing a S3BucketFolder resource.
-        :param pulumi.Input[str] acl: The AWS S3 permissions to apply to synced objects.
-        :param pulumi.Input[str] bucket_name: The name of the cloud storage bucket to sync to.
-        :param pulumi.Input[str] path: The relative path to the folder you want to sync from.
-        :param pulumi.Input[bool] managed_objects: Whether to track individual bucket objects with Pulumi. Default is true.
+        :param pulumi.Input[str] acl: The AWS [Canned ACL](https://docs.aws.amazon.com/AmazonS3/latest/userguide/acl-overview.html#canned-acl) to apply to each file (e.g., `public-read`). Required.
+        :param pulumi.Input[str] bucket_name: The name of the S3 bucket to sync to (e.g., `my-bucket` in `s3://my-bucket`). Required.
+        :param pulumi.Input[str] path: The path (relative or fully-qualified) to the folder containing the files to be synced. Required.
+        :param pulumi.Input[bool] managed_objects: Whether to have Pulumi manage files as individual cloud resources. Defaults to `true`.
         """
         pulumi.set(__self__, "acl", acl)
         pulumi.set(__self__, "bucket_name", bucket_name)
@@ -34,7 +34,7 @@ class S3BucketFolderArgs:
     @pulumi.getter
     def acl(self) -> pulumi.Input[str]:
         """
-        The AWS S3 permissions to apply to synced objects.
+        The AWS [Canned ACL](https://docs.aws.amazon.com/AmazonS3/latest/userguide/acl-overview.html#canned-acl) to apply to each file (e.g., `public-read`). Required.
         """
         return pulumi.get(self, "acl")
 
@@ -46,7 +46,7 @@ class S3BucketFolderArgs:
     @pulumi.getter(name="bucketName")
     def bucket_name(self) -> pulumi.Input[str]:
         """
-        The name of the cloud storage bucket to sync to.
+        The name of the S3 bucket to sync to (e.g., `my-bucket` in `s3://my-bucket`). Required.
         """
         return pulumi.get(self, "bucket_name")
 
@@ -58,7 +58,7 @@ class S3BucketFolderArgs:
     @pulumi.getter
     def path(self) -> pulumi.Input[str]:
         """
-        The relative path to the folder you want to sync from.
+        The path (relative or fully-qualified) to the folder containing the files to be synced. Required.
         """
         return pulumi.get(self, "path")
 
@@ -70,7 +70,7 @@ class S3BucketFolderArgs:
     @pulumi.getter(name="managedObjects")
     def managed_objects(self) -> Optional[pulumi.Input[bool]]:
         """
-        Whether to track individual bucket objects with Pulumi. Default is true.
+        Whether to have Pulumi manage files as individual cloud resources. Defaults to `true`.
         """
         return pulumi.get(self, "managed_objects")
 
@@ -93,10 +93,10 @@ class S3BucketFolder(pulumi.ComponentResource):
         Create a S3BucketFolder resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[str] acl: The AWS S3 permissions to apply to synced objects.
-        :param pulumi.Input[str] bucket_name: The name of the cloud storage bucket to sync to.
-        :param pulumi.Input[bool] managed_objects: Whether to track individual bucket objects with Pulumi. Default is true.
-        :param pulumi.Input[str] path: The relative path to the folder you want to sync from.
+        :param pulumi.Input[str] acl: The AWS [Canned ACL](https://docs.aws.amazon.com/AmazonS3/latest/userguide/acl-overview.html#canned-acl) to apply to each file (e.g., `public-read`). Required.
+        :param pulumi.Input[str] bucket_name: The name of the S3 bucket to sync to (e.g., `my-bucket` in `s3://my-bucket`). Required.
+        :param pulumi.Input[bool] managed_objects: Whether to have Pulumi manage files as individual cloud resources. Defaults to `true`.
+        :param pulumi.Input[str] path: The path (relative or fully-qualified) to the folder containing the files to be synced. Required.
         """
         ...
     @overload

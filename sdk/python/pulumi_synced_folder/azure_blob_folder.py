@@ -20,8 +20,11 @@ class AzureBlobFolderArgs:
                  managed_objects: Optional[pulumi.Input[bool]] = None):
         """
         The set of arguments for constructing a AzureBlobFolder resource.
-        :param pulumi.Input[str] path: The relative path to the folder you want to sync from.
-        :param pulumi.Input[bool] managed_objects: Whether to track individual bucket objects with Pulumi. Default is true.
+        :param pulumi.Input[str] container_name: The name of the Azure storage container to sync to. Required.
+        :param pulumi.Input[str] path: The path (relative or fully-qualified) to the folder containing the files to be synced. Required.
+        :param pulumi.Input[str] resource_group_name: The name of the Azure resource group that the storage account belongs to. Required.
+        :param pulumi.Input[str] storage_account_name: The name of the Azure storage account that the container belongs to. Required.
+        :param pulumi.Input[bool] managed_objects: Whether to have Pulumi manage files as individual cloud resources. Defaults to `true`.
         """
         pulumi.set(__self__, "container_name", container_name)
         pulumi.set(__self__, "path", path)
@@ -33,6 +36,9 @@ class AzureBlobFolderArgs:
     @property
     @pulumi.getter(name="containerName")
     def container_name(self) -> pulumi.Input[str]:
+        """
+        The name of the Azure storage container to sync to. Required.
+        """
         return pulumi.get(self, "container_name")
 
     @container_name.setter
@@ -43,7 +49,7 @@ class AzureBlobFolderArgs:
     @pulumi.getter
     def path(self) -> pulumi.Input[str]:
         """
-        The relative path to the folder you want to sync from.
+        The path (relative or fully-qualified) to the folder containing the files to be synced. Required.
         """
         return pulumi.get(self, "path")
 
@@ -54,6 +60,9 @@ class AzureBlobFolderArgs:
     @property
     @pulumi.getter(name="resourceGroupName")
     def resource_group_name(self) -> pulumi.Input[str]:
+        """
+        The name of the Azure resource group that the storage account belongs to. Required.
+        """
         return pulumi.get(self, "resource_group_name")
 
     @resource_group_name.setter
@@ -63,6 +72,9 @@ class AzureBlobFolderArgs:
     @property
     @pulumi.getter(name="storageAccountName")
     def storage_account_name(self) -> pulumi.Input[str]:
+        """
+        The name of the Azure storage account that the container belongs to. Required.
+        """
         return pulumi.get(self, "storage_account_name")
 
     @storage_account_name.setter
@@ -73,7 +85,7 @@ class AzureBlobFolderArgs:
     @pulumi.getter(name="managedObjects")
     def managed_objects(self) -> Optional[pulumi.Input[bool]]:
         """
-        Whether to track individual bucket objects with Pulumi. Default is true.
+        Whether to have Pulumi manage files as individual cloud resources. Defaults to `true`.
         """
         return pulumi.get(self, "managed_objects")
 
@@ -97,8 +109,11 @@ class AzureBlobFolder(pulumi.ComponentResource):
         Create a AzureBlobFolder resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[bool] managed_objects: Whether to track individual bucket objects with Pulumi. Default is true.
-        :param pulumi.Input[str] path: The relative path to the folder you want to sync from.
+        :param pulumi.Input[str] container_name: The name of the Azure storage container to sync to. Required.
+        :param pulumi.Input[bool] managed_objects: Whether to have Pulumi manage files as individual cloud resources. Defaults to `true`.
+        :param pulumi.Input[str] path: The path (relative or fully-qualified) to the folder containing the files to be synced. Required.
+        :param pulumi.Input[str] resource_group_name: The name of the Azure resource group that the storage account belongs to. Required.
+        :param pulumi.Input[str] storage_account_name: The name of the Azure storage account that the container belongs to. Required.
         """
         ...
     @overload

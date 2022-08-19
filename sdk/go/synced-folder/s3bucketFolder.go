@@ -40,25 +40,25 @@ func NewS3BucketFolder(ctx *pulumi.Context,
 }
 
 type s3bucketFolderArgs struct {
-	// The AWS S3 permissions to apply to synced objects.
+	// The AWS [Canned ACL](https://docs.aws.amazon.com/AmazonS3/latest/userguide/acl-overview.html#canned-acl) to apply to each file (e.g., `public-read`). Required.
 	Acl string `pulumi:"acl"`
-	// The name of the cloud storage bucket to sync to.
+	// The name of the S3 bucket to sync to (e.g., `my-bucket` in `s3://my-bucket`). Required.
 	BucketName string `pulumi:"bucketName"`
-	// Whether to track individual bucket objects with Pulumi. Default is true.
+	// Whether to have Pulumi manage files as individual cloud resources. Defaults to `true`.
 	ManagedObjects *bool `pulumi:"managedObjects"`
-	// The relative path to the folder you want to sync from.
+	// The path (relative or fully-qualified) to the folder containing the files to be synced. Required.
 	Path string `pulumi:"path"`
 }
 
 // The set of arguments for constructing a S3BucketFolder resource.
 type S3BucketFolderArgs struct {
-	// The AWS S3 permissions to apply to synced objects.
+	// The AWS [Canned ACL](https://docs.aws.amazon.com/AmazonS3/latest/userguide/acl-overview.html#canned-acl) to apply to each file (e.g., `public-read`). Required.
 	Acl pulumi.StringInput
-	// The name of the cloud storage bucket to sync to.
+	// The name of the S3 bucket to sync to (e.g., `my-bucket` in `s3://my-bucket`). Required.
 	BucketName pulumi.StringInput
-	// Whether to track individual bucket objects with Pulumi. Default is true.
+	// Whether to have Pulumi manage files as individual cloud resources. Defaults to `true`.
 	ManagedObjects pulumi.BoolPtrInput
-	// The relative path to the folder you want to sync from.
+	// The path (relative or fully-qualified) to the folder containing the files to be synced. Required.
 	Path pulumi.StringInput
 }
 

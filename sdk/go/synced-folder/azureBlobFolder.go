@@ -43,23 +43,29 @@ func NewAzureBlobFolder(ctx *pulumi.Context,
 }
 
 type azureBlobFolderArgs struct {
+	// The name of the Azure storage container to sync to. Required.
 	ContainerName string `pulumi:"containerName"`
-	// Whether to track individual bucket objects with Pulumi. Default is true.
+	// Whether to have Pulumi manage files as individual cloud resources. Defaults to `true`.
 	ManagedObjects *bool `pulumi:"managedObjects"`
-	// The relative path to the folder you want to sync from.
-	Path               string `pulumi:"path"`
-	ResourceGroupName  string `pulumi:"resourceGroupName"`
+	// The path (relative or fully-qualified) to the folder containing the files to be synced. Required.
+	Path string `pulumi:"path"`
+	// The name of the Azure resource group that the storage account belongs to. Required.
+	ResourceGroupName string `pulumi:"resourceGroupName"`
+	// The name of the Azure storage account that the container belongs to. Required.
 	StorageAccountName string `pulumi:"storageAccountName"`
 }
 
 // The set of arguments for constructing a AzureBlobFolder resource.
 type AzureBlobFolderArgs struct {
+	// The name of the Azure storage container to sync to. Required.
 	ContainerName pulumi.StringInput
-	// Whether to track individual bucket objects with Pulumi. Default is true.
+	// Whether to have Pulumi manage files as individual cloud resources. Defaults to `true`.
 	ManagedObjects pulumi.BoolPtrInput
-	// The relative path to the folder you want to sync from.
-	Path               pulumi.StringInput
-	ResourceGroupName  pulumi.StringInput
+	// The path (relative or fully-qualified) to the folder containing the files to be synced. Required.
+	Path pulumi.StringInput
+	// The name of the Azure resource group that the storage account belongs to. Required.
+	ResourceGroupName pulumi.StringInput
+	// The name of the Azure storage account that the container belongs to. Required.
 	StorageAccountName pulumi.StringInput
 }
 

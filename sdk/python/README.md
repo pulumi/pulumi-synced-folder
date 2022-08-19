@@ -26,7 +26,7 @@ Below are a few examples in Pulumi YAML, each of which assumes the existence of 
 
 ### Sync to an S3 bucket
 
-Here, a local folder (`./site`) is pushed to Amazon S3, its contents managed as individual `aws.s3.BucketObject`s:
+Here, a local folder, `./site`, is pushed to Amazon S3, its contents managed as individual `s3.BucketObject`s:
 
 
 ```yaml
@@ -58,7 +58,7 @@ outputs:
 
 ### Sync to an Azure Blob Storage container
 
-Here, the folder's contents are synced to an Azure Blob Storage container, but instead of managing each file as an `azure.storage.Blob`, the component invokes the Azure CLI (specifically the `az storage blob sync` sommand) with [Pulumi Command](https://www.pulumi.com/registry/packages/command/). The optional `managedObjects` property lets you configure this behavior on a folder-by-folder basis.
+Here, the folder's contents are synced to an Azure Blob Storage container, but instead of managing each file as an `azure.storage.Blob`, the component invokes the Azure CLI (specifically the `az storage blob sync` command) with [Pulumi Command](https://www.pulumi.com/registry/packages/command/). The optional `managedObjects` property lets you configure this behavior on a folder-by-folder basis.
 
 ```yaml
 name: synced-folder-examples-azure-yaml
@@ -161,7 +161,7 @@ Additional resource-specific properties are listed below.
 
 | Property | Type | Description | 
 | -------- | ---- | ----------- | 
-| `containerName` | `string` | The name of the storage container to sync to. Required. |
+| `containerName` | `string` | The name of the Azure storage container to sync to. Required. |
 | `storageAccountName` | `string` | The name of the Azure storage account that the container belongs to. Required. |
 | `resourceGroupName` | `string` | The name of the Azure resource group that the storage account belongs to. Required. |
 
@@ -177,14 +177,14 @@ Additional resource-specific properties are listed below.
 
 By default, the component manages your files as individual Pulumi cloud resources, but you can opt out of this behavior by setting the component's `managedObjects` property to `false`. When you do this, the component assumes you've installed the appropriate CLI tool &mdash; [`aws`](https://aws.amazon.com/cli/), [`az`](https://docs.microsoft.com/en-us/cli/azure/), or [`gcloud`/`gsutil`](https://cloud.google.com/storage/docs/gsutil), depending on the cloud &mdash; and uses the [Command](https://www.pulumi.com/registry/packages/command/) provider to issue commands on that tool directly. Files are one-way synchronized only (local to remote), and files that exist remotely but not locally are deleted. All files are deleted from remote storage on `pulumi destroy`.
 
-The component does not yet support switching seamlessly between `managedObjects: true` and `managedObjects: false`, however, so if you find after deploying a given folder with managed objects that you'd prefer to use unmanaged objects instead (or vice-versa), we recommend creating a second bucket/storage container and folder, and removing the first. You can generally do this within the scope of a single program. For example:
+The component does not yet support switching seamlessly between `managedObjects: true` and `managedObjects: false`, however, so if you find after deploying a given folder with managed objects that you'd prefer to use unmanaged objects instead (or vice-versa), we recommend creating a second bucket/storage container and folder and removing the first. You can generally do this within the scope of a single program update. For example:
 
 ```yaml
 # ...
 
 resources:
 
-  # The original bucked and synced-folder resources (using managed file objects).
+  # The original bucket and synced-folder resources, using managed file objects.
   # 
   # my-first-bucket:
   #   type: aws:s3:Bucket
@@ -220,6 +220,6 @@ resources:
 
 outputs:
 
-  # A program reference updated to use the new bucket.
+  # An updated program reference pointing to the new bucket.
   url: http://${changed-my-mind-bucket.websiteEndpoint}
 ```

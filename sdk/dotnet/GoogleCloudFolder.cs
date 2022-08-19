@@ -40,19 +40,19 @@ namespace Pulumi.SyncedFolder
     public sealed class GoogleCloudFolderArgs : Pulumi.ResourceArgs
     {
         /// <summary>
-        /// The name of the cloud storage bucket to sync to.
+        /// The name of the Google Cloud Storage bucket to sync to (e.g., `my-bucket` in `gs://my-bucket`). Required.
         /// </summary>
         [Input("bucketName", required: true)]
         public Input<string> BucketName { get; set; } = null!;
 
         /// <summary>
-        /// Whether to track individual bucket objects with Pulumi. Default is true.
+        /// Whether to have Pulumi manage files as individual cloud resources. Defaults to `true`.
         /// </summary>
         [Input("managedObjects")]
         public Input<bool>? ManagedObjects { get; set; }
 
         /// <summary>
-        /// The relative path to the folder you want to sync from.
+        /// The path (relative or fully-qualified) to the folder containing the files to be synced. Required.
         /// </summary>
         [Input("path", required: true)]
         public Input<string> Path { get; set; } = null!;

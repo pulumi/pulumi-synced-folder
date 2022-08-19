@@ -6,19 +6,19 @@
             "inputProperties": {
                 "path": {
                     "type": "string",
-                    "description": "The relative path to the folder you want to sync from."
-                },
-                "bucketName": {
-                    "type": "string",
-                    "description": "The name of the cloud storage bucket to sync to."
-                },
-                "acl": {
-                    "type": "string",
-                    "description": "The AWS S3 permissions to apply to synced objects."
+                    "description": "The path (relative or fully-qualified) to the folder containing the files to be synced. Required."
                 },
                 "managedObjects": {
                     "type": "boolean",
-                    "description": "Whether to track individual bucket objects with Pulumi. Default is true."
+                    "description": "Whether to have Pulumi manage files as individual cloud resources. Defaults to `true`."
+                },
+                "bucketName": {
+                    "type": "string",
+                    "description": "The name of the S3 bucket to sync to (e.g., `my-bucket` in `s3://my-bucket`). Required."
+                },
+                "acl": {
+                    "type": "string",
+                    "description": "The AWS [Canned ACL](https://docs.aws.amazon.com/AmazonS3/latest/userguide/acl-overview.html#canned-acl) to apply to each file (e.g., `public-read`). Required."
                 }
             },
             "requiredInputs": [
@@ -38,23 +38,23 @@
             "inputProperties": {
                 "path": {
                     "type": "string",
-                    "description": "The relative path to the folder you want to sync from."
-                },
-                "storageAccountName": {
-                    "type": "string",
-                    "description": ""
-                },
-                "resourceGroupName": {
-                    "type": "string",
-                    "description": ""
-                },
-                "containerName": {
-                    "type": "string",
-                    "description": ""
+                    "description": "The path (relative or fully-qualified) to the folder containing the files to be synced. Required."
                 },
                 "managedObjects": {
                     "type": "boolean",
-                    "description": "Whether to track individual bucket objects with Pulumi. Default is true."
+                    "description": "Whether to have Pulumi manage files as individual cloud resources. Defaults to `true`."
+                },
+                "storageAccountName": {
+                    "type": "string",
+                    "description": "The name of the Azure storage account that the container belongs to. Required."
+                },
+                "resourceGroupName": {
+                    "type": "string",
+                    "description": "The name of the Azure resource group that the storage account belongs to. Required."
+                },
+                "containerName": {
+                    "type": "string",
+                    "description": "The name of the Azure storage container to sync to. Required."
                 }
             },
             "requiredInputs": [
@@ -75,15 +75,15 @@
             "inputProperties": {
                 "path": {
                     "type": "string",
-                    "description": "The relative path to the folder you want to sync from."
-                },
-                "bucketName": {
-                    "type": "string",
-                    "description": "The name of the cloud storage bucket to sync to."
+                    "description": "The path (relative or fully-qualified) to the folder containing the files to be synced. Required."
                 },
                 "managedObjects": {
                     "type": "boolean",
-                    "description": "Whether to track individual bucket objects with Pulumi. Default is true."
+                    "description": "Whether to have Pulumi manage files as individual cloud resources. Defaults to `true`."
+                },
+                "bucketName": {
+                    "type": "string",
+                    "description": "The name of the Google Cloud Storage bucket to sync to (e.g., `my-bucket` in `gs://my-bucket`). Required."
                 }
             },
             "requiredInputs": [

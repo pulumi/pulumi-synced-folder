@@ -59,15 +59,24 @@ export class AzureBlobFolder extends pulumi.ComponentResource {
  * The set of arguments for constructing a AzureBlobFolder resource.
  */
 export interface AzureBlobFolderArgs {
+    /**
+     * The name of the Azure storage container to sync to. Required.
+     */
     containerName: pulumi.Input<string>;
     /**
-     * Whether to track individual bucket objects with Pulumi. Default is true.
+     * Whether to have Pulumi manage files as individual cloud resources. Defaults to `true`.
      */
     managedObjects?: pulumi.Input<boolean>;
     /**
-     * The relative path to the folder you want to sync from.
+     * The path (relative or fully-qualified) to the folder containing the files to be synced. Required.
      */
     path: pulumi.Input<string>;
+    /**
+     * The name of the Azure resource group that the storage account belongs to. Required.
+     */
     resourceGroupName: pulumi.Input<string>;
+    /**
+     * The name of the Azure storage account that the container belongs to. Required.
+     */
     storageAccountName: pulumi.Input<string>;
 }

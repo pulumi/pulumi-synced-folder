@@ -56,19 +56,19 @@ export class S3BucketFolder extends pulumi.ComponentResource {
  */
 export interface S3BucketFolderArgs {
     /**
-     * The AWS S3 permissions to apply to synced objects.
+     * The AWS [Canned ACL](https://docs.aws.amazon.com/AmazonS3/latest/userguide/acl-overview.html#canned-acl) to apply to each file (e.g., `public-read`). Required.
      */
     acl: pulumi.Input<string>;
     /**
-     * The name of the cloud storage bucket to sync to.
+     * The name of the S3 bucket to sync to (e.g., `my-bucket` in `s3://my-bucket`). Required.
      */
     bucketName: pulumi.Input<string>;
     /**
-     * Whether to track individual bucket objects with Pulumi. Default is true.
+     * Whether to have Pulumi manage files as individual cloud resources. Defaults to `true`.
      */
     managedObjects?: pulumi.Input<boolean>;
     /**
-     * The relative path to the folder you want to sync from.
+     * The path (relative or fully-qualified) to the folder containing the files to be synced. Required.
      */
     path: pulumi.Input<string>;
 }

@@ -18,9 +18,9 @@ class GoogleCloudFolderArgs:
                  managed_objects: Optional[pulumi.Input[bool]] = None):
         """
         The set of arguments for constructing a GoogleCloudFolder resource.
-        :param pulumi.Input[str] bucket_name: The name of the cloud storage bucket to sync to.
-        :param pulumi.Input[str] path: The relative path to the folder you want to sync from.
-        :param pulumi.Input[bool] managed_objects: Whether to track individual bucket objects with Pulumi. Default is true.
+        :param pulumi.Input[str] bucket_name: The name of the Google Cloud Storage bucket to sync to (e.g., `my-bucket` in `gs://my-bucket`). Required.
+        :param pulumi.Input[str] path: The path (relative or fully-qualified) to the folder containing the files to be synced. Required.
+        :param pulumi.Input[bool] managed_objects: Whether to have Pulumi manage files as individual cloud resources. Defaults to `true`.
         """
         pulumi.set(__self__, "bucket_name", bucket_name)
         pulumi.set(__self__, "path", path)
@@ -31,7 +31,7 @@ class GoogleCloudFolderArgs:
     @pulumi.getter(name="bucketName")
     def bucket_name(self) -> pulumi.Input[str]:
         """
-        The name of the cloud storage bucket to sync to.
+        The name of the Google Cloud Storage bucket to sync to (e.g., `my-bucket` in `gs://my-bucket`). Required.
         """
         return pulumi.get(self, "bucket_name")
 
@@ -43,7 +43,7 @@ class GoogleCloudFolderArgs:
     @pulumi.getter
     def path(self) -> pulumi.Input[str]:
         """
-        The relative path to the folder you want to sync from.
+        The path (relative or fully-qualified) to the folder containing the files to be synced. Required.
         """
         return pulumi.get(self, "path")
 
@@ -55,7 +55,7 @@ class GoogleCloudFolderArgs:
     @pulumi.getter(name="managedObjects")
     def managed_objects(self) -> Optional[pulumi.Input[bool]]:
         """
-        Whether to track individual bucket objects with Pulumi. Default is true.
+        Whether to have Pulumi manage files as individual cloud resources. Defaults to `true`.
         """
         return pulumi.get(self, "managed_objects")
 
@@ -77,9 +77,9 @@ class GoogleCloudFolder(pulumi.ComponentResource):
         Create a GoogleCloudFolder resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[str] bucket_name: The name of the cloud storage bucket to sync to.
-        :param pulumi.Input[bool] managed_objects: Whether to track individual bucket objects with Pulumi. Default is true.
-        :param pulumi.Input[str] path: The relative path to the folder you want to sync from.
+        :param pulumi.Input[str] bucket_name: The name of the Google Cloud Storage bucket to sync to (e.g., `my-bucket` in `gs://my-bucket`). Required.
+        :param pulumi.Input[bool] managed_objects: Whether to have Pulumi manage files as individual cloud resources. Defaults to `true`.
+        :param pulumi.Input[str] path: The path (relative or fully-qualified) to the folder containing the files to be synced. Required.
         """
         ...
     @overload

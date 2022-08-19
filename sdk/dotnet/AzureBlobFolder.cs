@@ -39,24 +39,33 @@ namespace Pulumi.SyncedFolder
 
     public sealed class AzureBlobFolderArgs : Pulumi.ResourceArgs
     {
+        /// <summary>
+        /// The name of the Azure storage container to sync to. Required.
+        /// </summary>
         [Input("containerName", required: true)]
         public Input<string> ContainerName { get; set; } = null!;
 
         /// <summary>
-        /// Whether to track individual bucket objects with Pulumi. Default is true.
+        /// Whether to have Pulumi manage files as individual cloud resources. Defaults to `true`.
         /// </summary>
         [Input("managedObjects")]
         public Input<bool>? ManagedObjects { get; set; }
 
         /// <summary>
-        /// The relative path to the folder you want to sync from.
+        /// The path (relative or fully-qualified) to the folder containing the files to be synced. Required.
         /// </summary>
         [Input("path", required: true)]
         public Input<string> Path { get; set; } = null!;
 
+        /// <summary>
+        /// The name of the Azure resource group that the storage account belongs to. Required.
+        /// </summary>
         [Input("resourceGroupName", required: true)]
         public Input<string> ResourceGroupName { get; set; } = null!;
 
+        /// <summary>
+        /// The name of the Azure storage account that the container belongs to. Required.
+        /// </summary>
         [Input("storageAccountName", required: true)]
         public Input<string> StorageAccountName { get; set; } = null!;
 

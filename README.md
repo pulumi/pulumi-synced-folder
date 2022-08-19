@@ -161,7 +161,7 @@ Additional resource-specific properties are listed below.
 
 | Property | Type | Description | 
 | -------- | ---- | ----------- | 
-| `containerName` | `string` | The name of the storage container to sync to. Required. |
+| `containerName` | `string` | The name of the Azure storage container to sync to. Required. |
 | `storageAccountName` | `string` | The name of the Azure storage account that the container belongs to. Required. |
 | `resourceGroupName` | `string` | The name of the Azure resource group that the storage account belongs to. Required. |
 
