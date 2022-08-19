@@ -6,21 +6,10 @@ A Pulumi component that synchronizes a local folder to Amazon S3, Azure Blob, or
 
 The component is available in all supported Pulumi-supported languages.
 
-```bash
-npm install @pulumi/synced-folder
-```
-
-```bash
-yarn add @pulumi/synced-folder
-```
-
-```bash
-pip install pulumi_synced_folder
-```
-
-```bash
-go get -t github.com/pulumi/pulumi-synced-folder/sdk/go/synced-folder
-```
+* `npm install @pulumi/synced-folder`
+* `yarn add @pulumi/synced-folder`
+* `pip install pulumi_synced_folder`
+* `go get -t github.com/pulumi/pulumi-synced-folder/sdk/go/synced-folder`
 
 ## Using the component
 
