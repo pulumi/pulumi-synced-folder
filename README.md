@@ -26,7 +26,7 @@ Below are a few examples in Pulumi YAML, each of which assumes the existence of 
 
 ### Sync to an S3 bucket
 
-Here, a local folder (`./site`) is pushed to Amazon S3, its contents managed as individual `aws.s3.BucketObject`s:
+Here, a local folder, `./site`, is pushed to Amazon S3, its contents managed as individual `s3.BucketObject`s:
 
 
 ```yaml
@@ -58,7 +58,7 @@ outputs:
 
 ### Sync to an Azure Blob Storage container
 
-Here, the folder's contents are synced to an Azure Blob Storage container, but instead of managing each file as an `azure.storage.Blob`, the component invokes the Azure CLI (specifically the `az storage blob sync` sommand) with [Pulumi Command](https://www.pulumi.com/registry/packages/command/). The optional `managedObjects` property lets you configure this behavior on a folder-by-folder basis.
+Here, the folder's contents are synced to an Azure Blob Storage container, but instead of managing each file as an `azure.storage.Blob`, the component invokes the Azure CLI (specifically the `az storage blob sync` command) with [Pulumi Command](https://www.pulumi.com/registry/packages/command/). The optional `managedObjects` property lets you configure this behavior on a folder-by-folder basis.
 
 ```yaml
 name: synced-folder-examples-azure-yaml
