@@ -156,6 +156,8 @@ outputs:
 
 ## Configuration
 
+### Common properties
+
 The following input properties are common to all three resource types:
 
 | Property | Type | Description | 
@@ -174,15 +176,15 @@ The following input properties are common to all three resource types:
 
 | Property | Type | Description | 
 | -------- | ---- | ----------- | 
-| `resourceGroupName` (Required) | `string` | The name of the Azure resource group that the destination storage account belongs to. |
-| `storageAccountName` (Required) | `string` | The name of the Azure storage account that the target storage container belongs to. |
-| `containerName` (Required) | `string` | The name of the storage container to sync to. 
+| `resourceGroupName` | `string` | The name of the Azure resource group that the destination storage account belongs to. Required. |
+| `storageAccountName` | `string` | The name of the Azure storage account that the target storage container belongs to. Required. |
+| `containerName` | `string` | The name of the storage container to sync to. Required. |
 
 ### `GoogleCloudFolder` properties
 
 | Property | Type | Description | 
 | -------- | ---- | ----------- | 
-| `bucketName` (Required) | `string` | The name of the Google Cloud Storage bucket to sync to (e.g., `my-bucket` in `gs://my-bucket`). |
+| `bucketName` | `string` | The name of the Google Cloud Storage bucket to sync to (e.g., `my-bucket` in `gs://my-bucket`). Required |
 
 ## Notes
 
