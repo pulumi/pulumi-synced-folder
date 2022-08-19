@@ -177,11 +177,11 @@ The following input properties are common to all three resource types:
 
 ## Notes
 
-### Using the `managedObjects` setting
+### How `managedObjects` works
 
 By default, the component manages your files as individual Pulumi cloud resources. You can, however, opt out of this behavior by setting the component's `managedObjects` property to `false`. When you do this, the component assumes you've installed the associated CLI tool &mdash; [`aws`](https://aws.amazon.com/cli/), [`az`](https://docs.microsoft.com/en-us/cli/azure/), or [`gcloud`/`gsutil`](https://cloud.google.com/storage/docs/gsutil), depending on the cloud &mdash; and uses the [Command](https://www.pulumi.com/registry/packages/command/) provider to issue commands on that CLI tool directly. Files are one-way synchronized only (local-to-remote), and files that exist remotely but not locally are deleted. All files are deleted from remote storage on `pulumi destroy`.
 
-The component does not yet support switching seamlessly between `managedObjects: true` and `managedObjects: false`, however, so if you find after deploying a given folder with managed objects that you'd like to use unmanaged objects instead or vice-versa), we recommend creating a second bucket/storage container and removing the first. For example:
+The component does not yet support switching seamlessly between `managedObjects: true` and `managedObjects: false`, however, so if you find after deploying a given folder with managed objects that you'd prefer to use unmanaged objects instead (or vice-versa), we recommend creating a second bucket/storage container and folder, then removing the first. For example:
 
 ```yaml
 # ...
