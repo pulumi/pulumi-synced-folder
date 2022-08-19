@@ -1,0 +1,6 @@
+name: synced-folder-examples-aws-python
+runtime:
+  name: python
+  options:
+    virtualenv: venv
+description: An example of using the synced-folder component.
