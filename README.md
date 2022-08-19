@@ -173,7 +173,7 @@ The following input properties are common to all three resource types:
 
 | Property | Type | Description | 
 | -------- | ---- | ----------- | 
-| `bucketName` | `string` | The name of the Google Cloud Storage bucket to sync to (e.g., `my-bucket` in `gs://my-bucket`). Required |
+| `bucketName` | `string` | The name of the Google Cloud Storage bucket to sync to (e.g., `my-bucket` in `gs://my-bucket`). Required. |
 
 ## Notes
 
