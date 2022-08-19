@@ -169,8 +169,8 @@ The following input properties are common to all three resource types:
 
 | Property | Type | Description | 
 | -------- | ---- | ----------- | 
-| `bucketName` (Required) | `string` | The name of the S3 bucket to sync to (e.g., `my-bucket` in `s3://my-bucket`). |
-| `acl` (Required) | `string` | The AWS [Canned ACL](https://docs.aws.amazon.com/AmazonS3/latest/userguide/acl-overview.html#canned-acl) to apply to uploaded files (e.g., `public-read`). |
+| `bucketName` | `string` | The name of the S3 bucket to sync to (e.g., `my-bucket` in `s3://my-bucket`). Required. |
+| `acl` | `string` | The AWS [Canned ACL](https://docs.aws.amazon.com/AmazonS3/latest/userguide/acl-overview.html#canned-acl) to apply to uploaded files (e.g., `public-read`). Required. |
 
 ### `AzureBlobFolder` properties
 
