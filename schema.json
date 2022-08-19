@@ -1,5 +1,18 @@
 {
     "name": "synced-folder",
+    "displayName": "Synced Folder",
+    "description": "A Pulumi component that synchronizes a local folder to Amazon S3, Azure Blob Storage, or Google Cloud Storage.",
+    "homepage": "https://pulumi.com",
+    "repository": "https://github.com/pulumi/pulumi-synced-folder",
+    "publisher": "Pulumi",
+    "keywords": [
+        "pulumi",
+        "aws",
+        "azure",
+        "gcp",
+        "category/cloud",
+        "kind/component"
+    ],
     "resources": {
         "synced-folder:index:S3BucketFolder": {
             "isComponent": true,

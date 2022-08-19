@@ -39,10 +39,16 @@ def readme():
 
 setup(name='pulumi_synced_folder',
       version=VERSION,
+      description="A Pulumi component that synchronizes a local folder to Amazon S3, Azure Blob Storage, or Google Cloud Storage.",
       long_description=readme(),
       long_description_content_type='text/markdown',
       cmdclass={
           'install': InstallPluginCommand,
+      },
+      keywords='pulumi aws azure gcp category/cloud kind/component',
+      url='https://pulumi.com',
+      project_urls={
+          'Repository': 'https://github.com/pulumi/pulumi-synced-folder'
       },
       packages=find_packages(),
       package_data={

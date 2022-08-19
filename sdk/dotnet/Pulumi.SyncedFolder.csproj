@@ -2,12 +2,12 @@
 
   <PropertyGroup>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Authors>Pulumi Corp.</Authors>
-    <Company>Pulumi Corp.</Company>
-    <Description></Description>
+    <Authors>Pulumi</Authors>
+    <Company>Pulumi</Company>
+    <Description>A Pulumi component that synchronizes a local folder to Amazon S3, Azure Blob Storage, or Google Cloud Storage.</Description>
     <PackageLicenseExpression></PackageLicenseExpression>
-    <PackageProjectUrl></PackageProjectUrl>
-    <RepositoryUrl></RepositoryUrl>
+    <PackageProjectUrl>https://pulumi.com</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/pulumi/pulumi-synced-folder</RepositoryUrl>
     <PackageIcon>logo.png</PackageIcon>
 
     <TargetFramework>netcoreapp3.1</TargetFramework>

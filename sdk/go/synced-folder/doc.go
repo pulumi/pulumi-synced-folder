@@ -1,3 +1,3 @@
-// Package synced-folder exports types, functions, subpackages for provisioning synced-folder resources.
+// A Pulumi component that synchronizes a local folder to Amazon S3, Azure Blob Storage, or Google Cloud Storage.
 //
 package syncedfolder
