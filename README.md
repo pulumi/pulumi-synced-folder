@@ -160,17 +160,17 @@ The following input properties are common to all three resource types:
 
 | Property | Type | Description | 
 | -------- | ---- | ----------- | 
-| `path` (Required) | `string` | The relative or fully-qualified path to the folder containing the files to be uploaded. | 
+| `path` | `string` | The relative or fully-qualified path to the folder containing the files to be uploaded. Required. | 
 | `managedObjects` | `boolean` | Whether to have Pulumi manage files as individual cloud resources. Defaults to `true`. See below for details. |
 
-### Additional properties for the `S3BucketFolder` resource
+### `S3BucketFolder` properties
 
 | Property | Type | Description | 
 | -------- | ---- | ----------- | 
 | `bucketName` (Required) | `string` | The name of the S3 bucket to sync to (e.g., `my-bucket` in `s3://my-bucket`). |
 | `acl` (Required) | `string` | The AWS [Canned ACL](https://docs.aws.amazon.com/AmazonS3/latest/userguide/acl-overview.html#canned-acl) to apply to uploaded files (e.g., `public-read`). |
 
-### Additional properties for the `AzureBlobFolder` resource
+### `AzureBlobFolder` properties
 
 | Property | Type | Description | 
 | -------- | ---- | ----------- | 
@@ -178,7 +178,7 @@ The following input properties are common to all three resource types:
 | `storageAccountName` (Required) | `string` | The name of the Azure storage account that the target storage container belongs to. |
 | `containerName` (Required) | `string` | The name of the storage container to sync to. 
 
-### Additional properties for the `GoogleCloudFolder` resource
+### `GoogleCloudFolder` properties
 
 | Property | Type | Description | 
 | -------- | ---- | ----------- | 
@@ -186,7 +186,7 @@ The following input properties are common to all three resource types:
 
 ## Notes
 
-### How `managedObjects` works
+### Using the `managedObjects` setting
 
 By default, the component manages your files as individual Pulumi cloud resources. You can, however, opt out of this behavior by setting the component's `managedObjects` property to `false`. When you do this, the component assumes you've installed the associated CLI tool &mdash; [`aws`](https://aws.amazon.com/cli/), [`az`](https://docs.microsoft.com/en-us/cli/azure/), or [`gcloud`/`gsutil`](https://cloud.google.com/storage/docs/gsutil), depending on the cloud &mdash; and uses the [Command](https://www.pulumi.com/registry/packages/command/) provider to issue commands on that CLI tool directly. Files are one-way synchronized only (local-to-remote), and files that exist remotely but not locally are deleted. All files are deleted from remote storage on `pulumi destroy`.
 
