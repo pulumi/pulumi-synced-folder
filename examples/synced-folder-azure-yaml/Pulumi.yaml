@@ -1,0 +1,29 @@
+name: synced-folder-azure-yaml
+runtime: yaml
+
+resources:
+
+    resourceGroup:
+      type: azure-native:resources:ResourceGroup
+
+    account:
+      type: azure-native:storage:StorageAccount
+      properties:
+        resourceGroupName: ${resourceGroup.name}
+        kind: StorageV2
+        sku:
+          name: Standard_LRS
+
+    container:
+      type: azure-native:storage:BlobContainer
+      properties:
+        resourceGroupName: ${resourceGroup.name}
+        accountName: ${account.name}
+
+    folder:
+      type: synced-folder:index:AzureBlobFolder
+      properties:
+        resourceGroupName: ${resourceGroup.name}
+        storageAccountName: ${account.name}
+        containerName: ${container.name}
+        path: ./my-folder

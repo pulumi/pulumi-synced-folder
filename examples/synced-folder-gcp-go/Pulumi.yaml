@@ -1,0 +1,3 @@
+name: synced-folder-gcp-go
+description: A minimal Google Cloud Go Pulumi program
+runtime: go
