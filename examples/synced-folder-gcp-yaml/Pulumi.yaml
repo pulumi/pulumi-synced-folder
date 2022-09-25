@@ -1,0 +1,23 @@
+name: synced-folder-gcp-yaml
+runtime: yaml
+
+resources:
+
+  bucket:
+    type: gcp:storage:Bucket
+    properties:
+      location: US
+
+  binding:
+    type: gcp:storage:BucketIAMBinding
+    properties:
+      bucket: ${bucket.name}
+      role: roles/storage.objectViewer
+      members:
+        - allUsers
+
+  folder:
+    type: synced-folder:index:GoogleCloudFolder
+    properties:
+      bucketName: ${bucket.name}
+      path: ./my-folder

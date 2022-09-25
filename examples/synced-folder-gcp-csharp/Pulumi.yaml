@@ -1,0 +1,3 @@
+name: synced-folder-gcp-csharp
+description: A minimal Google Cloud C# Pulumi program
+runtime: dotnet

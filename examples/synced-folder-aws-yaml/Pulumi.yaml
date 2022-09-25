@@ -1,0 +1,16 @@
+name: synced-folder-aws-yaml
+runtime: yaml
+
+resources:
+
+  my-bucket:
+    type: aws:s3:Bucket
+    properties:
+      acl: public-read
+
+  synced-folder:
+    type: synced-folder:index:S3BucketFolder
+    properties:
+      path: ./my-folder
+      bucketName: ${my-bucket.bucket}
+      acl: public-read

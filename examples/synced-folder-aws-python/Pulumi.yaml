@@ -1,0 +1,6 @@
+name: synced-folder-aws-python
+description: A minimal AWS Python Pulumi program
+runtime:
+    name: python
+    options:
+        virtualenv: venv
