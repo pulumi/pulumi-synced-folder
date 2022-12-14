@@ -16,13 +16,10 @@
         "install": "node scripts/install-pulumi-plugin.js resource synced-folder ${VERSION}"
     },
     "dependencies": {
-        "@pulumi/aws": "^5.0.0"
+        "@pulumi/pulumi": "^3.0.0"
     },
     "devDependencies": {
-        "typescript": "^3.7.0"
-    },
-    "peerDependencies": {
-        "@pulumi/pulumi": "latest"
+        "typescript": "^4.0.0"
     },
     "pulumi": {
         "resource": true
