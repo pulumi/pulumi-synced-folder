@@ -39,11 +39,12 @@ export class S3BucketFolder extends pulumi.ComponentResource {
         if (args.managedObjects) {
 
             folderContents.files.map(file => {
-                new aws.s3.BucketObject(file.relativePath, {
+                new aws.s3.BucketObject(file.fullPath, {
                     acl: args.acl,
                     bucket: args.bucketName,
                     contentType: file.contentType,
                     source: new pulumi.asset.FileAsset(file.fullPath),
+                    key: file.relativePath,
                 }, { parent: this });
             });
         
