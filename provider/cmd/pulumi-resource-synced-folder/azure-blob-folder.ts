@@ -23,45 +23,60 @@ export interface AzureBlobFolderArgs {
     resourceGroupName: string;
     containerName: string;
     managedObjects?: boolean;
+    disableManagedObjectAliases?: boolean;
 }
 
-export class AzureBlobFolder extends pulumi.ComponentResource { 
-    
+export class AzureBlobFolder extends pulumi.ComponentResource {
+
     constructor(name: string, args: AzureBlobFolderArgs, opts?: pulumi.ComponentResourceOptions) {
         super("synced-folder:index:AzureBlobFolder", name, args, opts);
 
-        args.managedObjects = args.managedObjects !== false;
+        args.managedObjects = args.managedObjects ?? true;
+        args.disableManagedObjectAliases = args.disableManagedObjectAliases ?? false;
 
         const folderContents = utils.getFolderContents(args.path);
         const syncCommand = pulumi.interpolate`az storage blob sync --source "${args.path}" --account-name "${args.storageAccountName}" --container '${args.containerName}' --delete-destination true --only-show-errors`;
         const deleteCommand = pulumi.interpolate`az storage blob delete-batch --account-name "${args.storageAccountName}" --source '${args.containerName}' --only-show-errors`;
-        
-        if (args.managedObjects) {
 
+        if (args.managedObjects) {
             folderContents.files.map(file => {
-                new storage.Blob(file.relativePath, {
+                let aliases: pulumi.Alias[] = [];
+                if (!args.disableManagedObjectAliases) {
+                    aliases = [{
+                        name: file.relativePath,
+                    }];
+                }
+
+                new storage.Blob(`${name}-${file.relativePath}`, {
+                    blobName: file.relativePath,
                     accountName: args.storageAccountName,
                     resourceGroupName: args.resourceGroupName,
                     containerName: args.containerName,
                     source: new pulumi.asset.FileAsset(file.fullPath),
                     contentType: file.contentType,
-                }, { parent: this });
+                }, { parent: this, aliases });
             });
 
         } else {
-            
-            new command.local.Command("sync-command", {
+            let aliases: pulumi.Alias[] = [];
+            if (!args.disableManagedObjectAliases) {
+                aliases = [{
+                    name: "sync-command",
+                }];
+            }
+
+            new command.local.Command(`${name}-sync-command`, {
                 create: syncCommand,
                 update: syncCommand,
                 delete: deleteCommand,
                 environment: {
                     LAST_MODIFIED: new Date(folderContents.summary.lastModified).toString(),
                 },
-            }, { parent: this });  
+            }, { parent: this, aliases });
         }
 
         this.registerOutputs({
-            
+
         });
     }
 }
