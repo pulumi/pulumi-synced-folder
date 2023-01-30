@@ -33,6 +33,10 @@
                 "acl": {
                     "type": "string",
                     "description": "The AWS [Canned ACL](https://docs.aws.amazon.com/AmazonS3/latest/userguide/acl-overview.html#canned-acl) to apply to each file (e.g., `public-read`). Required."
+                },
+                "disableManagedObjectAliases": {
+                    "type": "boolean",
+                    "description": "Disables adding an [alias](https://www.pulumi.com/docs/intro/concepts/resources/options/aliases/) resource option to managed objects in the bucket."
                 }
             },
             "requiredInputs": [
@@ -69,6 +73,10 @@
                 "containerName": {
                     "type": "string",
                     "description": "The name of the Azure storage container to sync to. Required."
+                },
+                "disableManagedObjectAliases": {
+                    "type": "boolean",
+                    "description": "Disables adding an [alias](https://www.pulumi.com/docs/intro/concepts/resources/options/aliases/) resource option to managed objects in the bucket."
                 }
             },
             "requiredInputs": [
@@ -98,6 +106,10 @@
                 "bucketName": {
                     "type": "string",
                     "description": "The name of the Google Cloud Storage bucket to sync to (e.g., `my-bucket` in `gs://my-bucket`). Required."
+                },
+                "disableManagedObjectAliases": {
+                    "type": "boolean",
+                    "description": "Disables adding an [alias](https://www.pulumi.com/docs/intro/concepts/resources/options/aliases/) resource option to managed objects in the bucket."
                 }
             },
             "requiredInputs": [

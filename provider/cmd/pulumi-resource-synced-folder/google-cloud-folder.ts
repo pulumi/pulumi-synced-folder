@@ -21,44 +21,58 @@ export interface GoogleCloudFolderArgs {
     path: string;
     bucketName: string;
     managedObjects?: boolean;
+    disableManagedObjectAliases?: boolean;
 }
 
-export class GoogleCloudFolder extends pulumi.ComponentResource { 
-    
+export class GoogleCloudFolder extends pulumi.ComponentResource {
+
     constructor(name: string, args: GoogleCloudFolderArgs, opts?: pulumi.ComponentResourceOptions) {
         super("synced-folder:index:GoogleCloudFolder", name, args, opts);
 
-        args.managedObjects = args.managedObjects !== false;
+        args.managedObjects = args.managedObjects ?? true;
+        args.disableManagedObjectAliases = args.disableManagedObjectAliases ?? false;
 
         const folderContents = utils.getFolderContents(args.path);
         const syncCommand = pulumi.interpolate`gsutil -q -m rsync -r -d "${args.path}" "gs://${args.bucketName}"`;
         const deleteCommand = pulumi.interpolate`gsutil -q rm "gs://${args.bucketName}/**"`;
 
         if (args.managedObjects) {
-
             folderContents.files.map(file => {
-                new gcp.storage.BucketObject(file.relativePath, {
+                let aliases: pulumi.Alias[] = [];
+                if (!args.disableManagedObjectAliases) {
+                    aliases = [{
+                        name: file.relativePath,
+                    }];
+                }
+
+                new gcp.storage.BucketObject(`${name}-${file.relativePath}`, {
                     bucket: args.bucketName,
                     name: file.relativePath,
                     source: new pulumi.asset.FileAsset(file.fullPath),
                     contentType: file.contentType,
-                }, { parent: this });
+                }, { parent: this, aliases });
             });
-        
+
         } else {
-            
-            new command.local.Command("sync-command", {
+            let aliases: pulumi.Alias[] = [];
+            if (!args.disableManagedObjectAliases) {
+                aliases = [{
+                    name: "sync-command",
+                }];
+            }
+
+            new command.local.Command(`${name}-sync-command`, {
                 create: syncCommand,
                 update: syncCommand,
                 delete: deleteCommand,
                 environment: {
                     LAST_MODIFIED: new Date(folderContents.summary.lastModified).toString(),
                 }
-            }, { parent: this });    
+            }, { parent: this, aliases });
         }
 
         this.registerOutputs({
-            
+
         });
     }
 }

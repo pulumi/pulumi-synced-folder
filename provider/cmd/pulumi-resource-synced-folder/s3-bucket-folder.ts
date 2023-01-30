@@ -22,45 +22,60 @@ export interface S3BucketFolderArgs {
     bucketName: string;
     acl: string;
     managedObjects?: boolean;
+    disableManagedObjectAliases?: boolean;
 }
 
-export class S3BucketFolder extends pulumi.ComponentResource { 
-    
+export class S3BucketFolder extends pulumi.ComponentResource {
+
     constructor(name: string, args: S3BucketFolderArgs, opts?: pulumi.ComponentResourceOptions) {
         super("synced-folder:index:S3BucketFolder", name, args, opts);
 
-        args.managedObjects = args.managedObjects !== false;
-        
+        args.managedObjects = args.managedObjects ?? true;
+        args.disableManagedObjectAliases = args.disableManagedObjectAliases ?? false;
+
         const folderContents = utils.getFolderContents(args.path);
         const region = pulumi.output(aws.getRegion());
         const syncCommand = pulumi.interpolate`aws s3 sync "${args.path}" "s3://${args.bucketName}" --acl "${args.acl}" --region "${region.name}" --delete --only-show-errors`;
         const deleteCommand = pulumi.interpolate`aws s3 rm "s3://${args.bucketName}" --include "*" --recursive --only-show-errors`;
 
         if (args.managedObjects) {
-
             folderContents.files.map(file => {
-                new aws.s3.BucketObject(file.relativePath, {
+                let aliases: pulumi.Alias[] = [];
+                if (!args.disableManagedObjectAliases) {
+                    aliases = [{
+                        name: file.relativePath,
+                    }];
+                }
+
+                new aws.s3.BucketObject(`${name}-${file.relativePath}`, {
+                    key: file.relativePath,
                     acl: args.acl,
                     bucket: args.bucketName,
                     contentType: file.contentType,
                     source: new pulumi.asset.FileAsset(file.fullPath),
-                }, { parent: this });
+                }, { parent: this, aliases });
             });
-        
+
         } else {
-            
-            new command.local.Command("sync-command", {
+            let aliases: pulumi.Alias[] = [];
+            if (!args.disableManagedObjectAliases) {
+                aliases = [{
+                    name: "sync-command",
+                }];
+            }
+
+            new command.local.Command(`${name}-sync-command`, {
                 create: syncCommand,
                 update:  syncCommand,
                 delete: deleteCommand,
                 environment: {
                     LAST_MODIFIED: new Date(folderContents.summary.lastModified).toString(),
                 },
-            }, { parent: this });    
+            }, { parent: this, aliases });
         }
 
         this.registerOutputs({
-            
+
         });
     }
 }
