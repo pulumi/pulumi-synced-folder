@@ -11,5 +11,5 @@ folder = pulumi_synced_folder.S3BucketFolder(
     path="./my-folder",
     bucket_name=bucket.bucket,
     acl=s3.CannedAcl.PUBLIC_READ,
-    include_hidden_files=True
+    include_hidden_files=True,
 )
