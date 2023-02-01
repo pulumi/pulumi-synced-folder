@@ -16,5 +16,5 @@ const binding = new gcp.storage.BucketIAMBinding("binding", {
 const folder = new synced.GoogleCloudFolder("folder", {
     bucketName: bucket.name,
     path: "./my-folder",
-    includeHiddenFiles: true
+    includeHiddenFiles: true,
 });
