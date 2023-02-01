@@ -13,9 +13,9 @@ interface FolderContents {
     }[],
 }
 
-export function getFolderContents(path: string): FolderContents {
+export function getFolderContents(path: string, includeHiddenFiles: boolean=false): FolderContents {
     const folderPath = path;
-    const contents = glob.sync(`${folderPath}/**/*`, { nodir: true });
+    const contents = glob.sync(`${folderPath}/**/*`, { nodir: true, dot:includeHiddenFiles });
 
     const files = contents.map(fullPath => {
         const relativePath = fullPath.replace(`${folderPath}/`, "");

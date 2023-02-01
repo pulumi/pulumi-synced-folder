@@ -22,6 +22,7 @@ export interface GoogleCloudFolderArgs {
     bucketName: string;
     managedObjects?: boolean;
     disableManagedObjectAliases?: boolean;
+    includeHiddenFiles?: boolean;
 }
 
 export class GoogleCloudFolder extends pulumi.ComponentResource {
@@ -32,7 +33,7 @@ export class GoogleCloudFolder extends pulumi.ComponentResource {
         args.managedObjects = args.managedObjects ?? true;
         args.disableManagedObjectAliases = args.disableManagedObjectAliases ?? false;
 
-        const folderContents = utils.getFolderContents(args.path);
+        const folderContents = utils.getFolderContents(args.path, args.includeHiddenFiles);
         const syncCommand = pulumi.interpolate`gsutil -q -m rsync -r -d "${args.path}" "gs://${args.bucketName}"`;
         const deleteCommand = pulumi.interpolate`gsutil -q rm "gs://${args.bucketName}/**"`;
 

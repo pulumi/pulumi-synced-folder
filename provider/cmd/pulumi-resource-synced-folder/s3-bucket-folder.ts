@@ -23,6 +23,7 @@ export interface S3BucketFolderArgs {
     acl: string;
     managedObjects?: boolean;
     disableManagedObjectAliases?: boolean;
+    includeHiddenFiles?: boolean;
 }
 
 export class S3BucketFolder extends pulumi.ComponentResource {
@@ -33,7 +34,7 @@ export class S3BucketFolder extends pulumi.ComponentResource {
         args.managedObjects = args.managedObjects ?? true;
         args.disableManagedObjectAliases = args.disableManagedObjectAliases ?? false;
 
-        const folderContents = utils.getFolderContents(args.path);
+        const folderContents = utils.getFolderContents(args.path, args.includeHiddenFiles);
         const region = pulumi.output(aws.getRegion());
         const syncCommand = pulumi.interpolate`aws s3 sync "${args.path}" "s3://${args.bucketName}" --acl "${args.acl}" --region "${region.name}" --delete --only-show-errors`;
         const deleteCommand = pulumi.interpolate`aws s3 rm "s3://${args.bucketName}" --include "*" --recursive --only-show-errors`;

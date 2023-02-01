@@ -44,6 +44,8 @@ export class AzureBlobFolder extends pulumi.ComponentResource {
                 throw new Error("Missing required property 'storageAccountName'");
             }
             resourceInputs["containerName"] = args ? args.containerName : undefined;
+            resourceInputs["disableManagedObjectAliases"] = args ? args.disableManagedObjectAliases : undefined;
+            resourceInputs["includeHiddenFiles"] = args ? args.includeHiddenFiles : undefined;
             resourceInputs["managedObjects"] = args ? args.managedObjects : undefined;
             resourceInputs["path"] = args ? args.path : undefined;
             resourceInputs["resourceGroupName"] = args ? args.resourceGroupName : undefined;
@@ -63,6 +65,14 @@ export interface AzureBlobFolderArgs {
      * The name of the Azure storage container to sync to. Required.
      */
     containerName: pulumi.Input<string>;
+    /**
+     * Disables adding an [alias](https://www.pulumi.com/docs/intro/concepts/resources/options/aliases/) resource option to managed objects in the bucket.
+     */
+    disableManagedObjectAliases?: pulumi.Input<boolean>;
+    /**
+     * Include hidden files ("dotfiles") when synchronixing folders. False by default.
+     */
+    includeHiddenFiles?: pulumi.Input<boolean>;
     /**
      * Whether to have Pulumi manage files as individual cloud resources. Defaults to `true`.
      */

@@ -37,6 +37,10 @@
                 "disableManagedObjectAliases": {
                     "type": "boolean",
                     "description": "Disables adding an [alias](https://www.pulumi.com/docs/intro/concepts/resources/options/aliases/) resource option to managed objects in the bucket."
+                },
+                "includeHiddenFiles": {
+                    "type": "boolean",
+                    "description": "Include hidden files (\"dotfiles\") when synchronixing folders. False by default."
                 }
             },
             "requiredInputs": [
@@ -77,6 +81,10 @@
                 "disableManagedObjectAliases": {
                     "type": "boolean",
                     "description": "Disables adding an [alias](https://www.pulumi.com/docs/intro/concepts/resources/options/aliases/) resource option to managed objects in the bucket."
+                },
+                "includeHiddenFiles": {
+                    "type": "boolean",
+                    "description": "Include hidden files (\"dotfiles\") when synchronixing folders. False by default."
                 }
             },
             "requiredInputs": [
@@ -110,6 +118,10 @@
                 "disableManagedObjectAliases": {
                     "type": "boolean",
                     "description": "Disables adding an [alias](https://www.pulumi.com/docs/intro/concepts/resources/options/aliases/) resource option to managed objects in the bucket."
+                },
+                "includeHiddenFiles": {
+                    "type": "boolean",
+                    "description": "Include hidden files (\"dotfiles\") when synchronixing folders. False by default."
                 }
             },
             "requiredInputs": [

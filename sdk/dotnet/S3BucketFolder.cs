@@ -52,6 +52,18 @@ namespace Pulumi.SyncedFolder
         public Input<string> BucketName { get; set; } = null!;
 
         /// <summary>
+        /// Disables adding an [alias](https://www.pulumi.com/docs/intro/concepts/resources/options/aliases/) resource option to managed objects in the bucket.
+        /// </summary>
+        [Input("disableManagedObjectAliases")]
+        public Input<bool>? DisableManagedObjectAliases { get; set; }
+
+        /// <summary>
+        /// Include hidden files ("dotfiles") when synchronixing folders. False by default.
+        /// </summary>
+        [Input("includeHiddenFiles")]
+        public Input<bool>? IncludeHiddenFiles { get; set; }
+
+        /// <summary>
         /// Whether to have Pulumi manage files as individual cloud resources. Defaults to `true`.
         /// </summary>
         [Input("managedObjects")]

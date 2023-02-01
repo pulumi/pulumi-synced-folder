@@ -42,6 +42,8 @@ export class S3BucketFolder extends pulumi.ComponentResource {
             }
             resourceInputs["acl"] = args ? args.acl : undefined;
             resourceInputs["bucketName"] = args ? args.bucketName : undefined;
+            resourceInputs["disableManagedObjectAliases"] = args ? args.disableManagedObjectAliases : undefined;
+            resourceInputs["includeHiddenFiles"] = args ? args.includeHiddenFiles : undefined;
             resourceInputs["managedObjects"] = args ? args.managedObjects : undefined;
             resourceInputs["path"] = args ? args.path : undefined;
         } else {
@@ -63,6 +65,14 @@ export interface S3BucketFolderArgs {
      * The name of the S3 bucket to sync to (e.g., `my-bucket` in `s3://my-bucket`). Required.
      */
     bucketName: pulumi.Input<string>;
+    /**
+     * Disables adding an [alias](https://www.pulumi.com/docs/intro/concepts/resources/options/aliases/) resource option to managed objects in the bucket.
+     */
+    disableManagedObjectAliases?: pulumi.Input<boolean>;
+    /**
+     * Include hidden files ("dotfiles") when synchronixing folders. False by default.
+     */
+    includeHiddenFiles?: pulumi.Input<boolean>;
     /**
      * Whether to have Pulumi manage files as individual cloud resources. Defaults to `true`.
      */
