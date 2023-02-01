@@ -27,3 +27,4 @@ resources:
         storageAccountName: ${account.name}
         containerName: ${container.name}
         path: ./my-folder
+        includeHiddenFiles: true

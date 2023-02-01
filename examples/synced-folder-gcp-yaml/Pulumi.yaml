@@ -21,3 +21,4 @@ resources:
     properties:
       bucketName: ${bucket.name}
       path: ./my-folder
+      includeHiddenFiles: true

@@ -19,5 +19,6 @@ folder = pulumi_synced_folder.GoogleCloudFolder(
     pulumi_synced_folder.GoogleCloudFolderArgs(
         bucket_name=bucket.name,
         path="./my-folder",
+        include_hidden_files=True
     ),
 )

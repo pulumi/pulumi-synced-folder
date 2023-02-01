@@ -17,10 +17,11 @@ func main() {
 		}
 
 		_, err = synced.NewS3BucketFolder(ctx, "synced-folder", &synced.S3BucketFolderArgs{
-			Path:           pulumi.String("./my-folder"),
-			BucketName:     bucket.Bucket,
-			Acl:            s3.CannedAclPublicRead,
-			ManagedObjects: pulumi.Bool(false),
+			Path:               pulumi.String("./my-folder"),
+			BucketName:         bucket.Bucket,
+			Acl:                s3.CannedAclPublicRead,
+			ManagedObjects:     pulumi.Bool(false),
+			IncludeHiddenFiles: pulumi.Bool(true),
 		})
 		if err != nil {
 			return err

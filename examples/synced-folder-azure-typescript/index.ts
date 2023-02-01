@@ -22,4 +22,5 @@ const folder = new synced.AzureBlobFolder("synced-folder", {
     storageAccountName: account.name,
     containerName: container.name,
     path: "./my-folder",
+    includeHiddenFiles: true
 });

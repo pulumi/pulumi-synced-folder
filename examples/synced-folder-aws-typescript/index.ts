@@ -9,4 +9,5 @@ const folder = new synced.S3BucketFolder("synced-folder", {
     path: "./my-folder",
     bucketName: bucket.bucket,
     acl: aws.s3.PublicReadAcl,
+    includeHiddenFiles: true
 });

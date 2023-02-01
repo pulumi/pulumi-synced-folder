@@ -39,6 +39,7 @@ func main() {
 			StorageAccountName: account.Name,
 			ContainerName:      container.Name,
 			Path:               pulumi.String("./my-folder"),
+			IncludeHiddenFiles: pulumi.Bool(true),
 		})
 		if err != nil {
 			return err

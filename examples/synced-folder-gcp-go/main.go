@@ -26,8 +26,9 @@ func main() {
 		}
 
 		_, err = synced.NewGoogleCloudFolder(ctx, "folder", &synced.GoogleCloudFolderArgs{
-			BucketName: bucket.Name,
-			Path:       pulumi.String("./my-folder"),
+			BucketName:         bucket.Name,
+			Path:               pulumi.String("./my-folder"),
+			IncludeHiddenFiles: pulumi.Bool(true),
 		})
 		if err != nil {
 			return err

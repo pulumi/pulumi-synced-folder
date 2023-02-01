@@ -23,4 +23,5 @@ folder = pulumi_synced_folder.AzureBlobFolder("synced-folder", pulumi_synced_fol
     storage_account_name=account.name,
     container_name=container.name,
     path="./my-folder",
+    include_hidden_files=True
 ))

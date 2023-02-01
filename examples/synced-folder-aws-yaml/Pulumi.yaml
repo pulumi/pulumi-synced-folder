@@ -14,3 +14,4 @@ resources:
       path: ./my-folder
       bucketName: ${my-bucket.bucket}
       acl: public-read
+      includeHiddenFiles: true
