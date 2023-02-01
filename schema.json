@@ -40,7 +40,7 @@
                 },
                 "includeHiddenFiles": {
                     "type": "boolean",
-                    "description": "Include hidden files (\"dotfiles\") when synchronixing folders. False by default."
+                    "description": "Include hidden files (\"dotfiles\") when synchronizing folders. Defaults to `false`."
                 }
             },
             "requiredInputs": [
