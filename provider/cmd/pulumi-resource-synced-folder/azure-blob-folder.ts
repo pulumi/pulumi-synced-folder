@@ -34,6 +34,7 @@ export class AzureBlobFolder extends pulumi.ComponentResource {
 
         args.managedObjects = args.managedObjects ?? true;
         args.disableManagedObjectAliases = args.disableManagedObjectAliases ?? false;
+        args.includeHiddenFiles = args.includeHiddenFiles ?? false;
 
         const folderContents = utils.getFolderContents(args.path, args.includeHiddenFiles);
         const syncCommand = pulumi.interpolate`az storage blob sync --source "${args.path}" --account-name "${args.storageAccountName}" --container '${args.containerName}' --delete-destination true --only-show-errors`;
