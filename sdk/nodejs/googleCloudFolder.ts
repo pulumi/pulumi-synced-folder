@@ -38,6 +38,8 @@ export class GoogleCloudFolder extends pulumi.ComponentResource {
                 throw new Error("Missing required property 'path'");
             }
             resourceInputs["bucketName"] = args ? args.bucketName : undefined;
+            resourceInputs["disableManagedObjectAliases"] = args ? args.disableManagedObjectAliases : undefined;
+            resourceInputs["includeHiddenFiles"] = args ? args.includeHiddenFiles : undefined;
             resourceInputs["managedObjects"] = args ? args.managedObjects : undefined;
             resourceInputs["path"] = args ? args.path : undefined;
         } else {
@@ -55,6 +57,14 @@ export interface GoogleCloudFolderArgs {
      * The name of the Google Cloud Storage bucket to sync to (e.g., `my-bucket` in `gs://my-bucket`). Required.
      */
     bucketName: pulumi.Input<string>;
+    /**
+     * Disables adding an [alias](https://www.pulumi.com/docs/intro/concepts/resources/options/aliases/) resource option to managed objects in the bucket.
+     */
+    disableManagedObjectAliases?: pulumi.Input<boolean>;
+    /**
+     * Include hidden files ("dotfiles") when synchronizing folders. Defaults to `false`.
+     */
+    includeHiddenFiles?: pulumi.Input<boolean>;
     /**
      * Whether to have Pulumi manage files as individual cloud resources. Defaults to `true`.
      */

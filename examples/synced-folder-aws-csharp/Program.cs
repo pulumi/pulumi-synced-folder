@@ -14,5 +14,6 @@ return await Deployment.RunAsync(() =>
         BucketName = bucket.BucketName,
         Acl = (string)CannedAcl.PublicRead,
         ManagedObjects = false,
+        IncludeHiddenFiles = true,
     });
 });

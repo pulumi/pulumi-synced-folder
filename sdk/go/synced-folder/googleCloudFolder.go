@@ -39,6 +39,10 @@ func NewGoogleCloudFolder(ctx *pulumi.Context,
 type googleCloudFolderArgs struct {
 	// The name of the Google Cloud Storage bucket to sync to (e.g., `my-bucket` in `gs://my-bucket`). Required.
 	BucketName string `pulumi:"bucketName"`
+	// Disables adding an [alias](https://www.pulumi.com/docs/intro/concepts/resources/options/aliases/) resource option to managed objects in the bucket.
+	DisableManagedObjectAliases *bool `pulumi:"disableManagedObjectAliases"`
+	// Include hidden files ("dotfiles") when synchronizing folders. Defaults to `false`.
+	IncludeHiddenFiles *bool `pulumi:"includeHiddenFiles"`
 	// Whether to have Pulumi manage files as individual cloud resources. Defaults to `true`.
 	ManagedObjects *bool `pulumi:"managedObjects"`
 	// The path (relative or fully-qualified) to the folder containing the files to be synced. Required.
@@ -49,6 +53,10 @@ type googleCloudFolderArgs struct {
 type GoogleCloudFolderArgs struct {
 	// The name of the Google Cloud Storage bucket to sync to (e.g., `my-bucket` in `gs://my-bucket`). Required.
 	BucketName pulumi.StringInput
+	// Disables adding an [alias](https://www.pulumi.com/docs/intro/concepts/resources/options/aliases/) resource option to managed objects in the bucket.
+	DisableManagedObjectAliases pulumi.BoolPtrInput
+	// Include hidden files ("dotfiles") when synchronizing folders. Defaults to `false`.
+	IncludeHiddenFiles pulumi.BoolPtrInput
 	// Whether to have Pulumi manage files as individual cloud resources. Defaults to `true`.
 	ManagedObjects pulumi.BoolPtrInput
 	// The path (relative or fully-qualified) to the folder containing the files to be synced. Required.
@@ -81,7 +89,7 @@ func (i *GoogleCloudFolder) ToGoogleCloudFolderOutputWithContext(ctx context.Con
 // GoogleCloudFolderArrayInput is an input type that accepts GoogleCloudFolderArray and GoogleCloudFolderArrayOutput values.
 // You can construct a concrete instance of `GoogleCloudFolderArrayInput` via:
 //
-//          GoogleCloudFolderArray{ GoogleCloudFolderArgs{...} }
+//	GoogleCloudFolderArray{ GoogleCloudFolderArgs{...} }
 type GoogleCloudFolderArrayInput interface {
 	pulumi.Input
 
@@ -106,7 +114,7 @@ func (i GoogleCloudFolderArray) ToGoogleCloudFolderArrayOutputWithContext(ctx co
 // GoogleCloudFolderMapInput is an input type that accepts GoogleCloudFolderMap and GoogleCloudFolderMapOutput values.
 // You can construct a concrete instance of `GoogleCloudFolderMapInput` via:
 //
-//          GoogleCloudFolderMap{ "key": GoogleCloudFolderArgs{...} }
+//	GoogleCloudFolderMap{ "key": GoogleCloudFolderArgs{...} }
 type GoogleCloudFolderMapInput interface {
 	pulumi.Input
 

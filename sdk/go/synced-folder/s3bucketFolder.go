@@ -44,6 +44,10 @@ type s3bucketFolderArgs struct {
 	Acl string `pulumi:"acl"`
 	// The name of the S3 bucket to sync to (e.g., `my-bucket` in `s3://my-bucket`). Required.
 	BucketName string `pulumi:"bucketName"`
+	// Disables adding an [alias](https://www.pulumi.com/docs/intro/concepts/resources/options/aliases/) resource option to managed objects in the bucket.
+	DisableManagedObjectAliases *bool `pulumi:"disableManagedObjectAliases"`
+	// Include hidden files ("dotfiles") when synchronizing folders. Defaults to `false`.
+	IncludeHiddenFiles *bool `pulumi:"includeHiddenFiles"`
 	// Whether to have Pulumi manage files as individual cloud resources. Defaults to `true`.
 	ManagedObjects *bool `pulumi:"managedObjects"`
 	// The path (relative or fully-qualified) to the folder containing the files to be synced. Required.
@@ -56,6 +60,10 @@ type S3BucketFolderArgs struct {
 	Acl pulumi.StringInput
 	// The name of the S3 bucket to sync to (e.g., `my-bucket` in `s3://my-bucket`). Required.
 	BucketName pulumi.StringInput
+	// Disables adding an [alias](https://www.pulumi.com/docs/intro/concepts/resources/options/aliases/) resource option to managed objects in the bucket.
+	DisableManagedObjectAliases pulumi.BoolPtrInput
+	// Include hidden files ("dotfiles") when synchronizing folders. Defaults to `false`.
+	IncludeHiddenFiles pulumi.BoolPtrInput
 	// Whether to have Pulumi manage files as individual cloud resources. Defaults to `true`.
 	ManagedObjects pulumi.BoolPtrInput
 	// The path (relative or fully-qualified) to the folder containing the files to be synced. Required.
@@ -88,7 +96,7 @@ func (i *S3BucketFolder) ToS3BucketFolderOutputWithContext(ctx context.Context) 
 // S3BucketFolderArrayInput is an input type that accepts S3BucketFolderArray and S3BucketFolderArrayOutput values.
 // You can construct a concrete instance of `S3BucketFolderArrayInput` via:
 //
-//          S3BucketFolderArray{ S3BucketFolderArgs{...} }
+//	S3BucketFolderArray{ S3BucketFolderArgs{...} }
 type S3BucketFolderArrayInput interface {
 	pulumi.Input
 
@@ -113,7 +121,7 @@ func (i S3BucketFolderArray) ToS3BucketFolderArrayOutputWithContext(ctx context.
 // S3BucketFolderMapInput is an input type that accepts S3BucketFolderMap and S3BucketFolderMapOutput values.
 // You can construct a concrete instance of `S3BucketFolderMapInput` via:
 //
-//          S3BucketFolderMap{ "key": S3BucketFolderArgs{...} }
+//	S3BucketFolderMap{ "key": S3BucketFolderArgs{...} }
 type S3BucketFolderMapInput interface {
 	pulumi.Input
 

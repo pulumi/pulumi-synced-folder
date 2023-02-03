@@ -17,6 +17,8 @@ class AzureBlobFolderArgs:
                  path: pulumi.Input[str],
                  resource_group_name: pulumi.Input[str],
                  storage_account_name: pulumi.Input[str],
+                 disable_managed_object_aliases: Optional[pulumi.Input[bool]] = None,
+                 include_hidden_files: Optional[pulumi.Input[bool]] = None,
                  managed_objects: Optional[pulumi.Input[bool]] = None):
         """
         The set of arguments for constructing a AzureBlobFolder resource.
@@ -24,12 +26,18 @@ class AzureBlobFolderArgs:
         :param pulumi.Input[str] path: The path (relative or fully-qualified) to the folder containing the files to be synced. Required.
         :param pulumi.Input[str] resource_group_name: The name of the Azure resource group that the storage account belongs to. Required.
         :param pulumi.Input[str] storage_account_name: The name of the Azure storage account that the container belongs to. Required.
+        :param pulumi.Input[bool] disable_managed_object_aliases: Disables adding an [alias](https://www.pulumi.com/docs/intro/concepts/resources/options/aliases/) resource option to managed objects in the bucket.
+        :param pulumi.Input[bool] include_hidden_files: Include hidden files ("dotfiles") when synchronizing folders. Defaults to `false`.
         :param pulumi.Input[bool] managed_objects: Whether to have Pulumi manage files as individual cloud resources. Defaults to `true`.
         """
         pulumi.set(__self__, "container_name", container_name)
         pulumi.set(__self__, "path", path)
         pulumi.set(__self__, "resource_group_name", resource_group_name)
         pulumi.set(__self__, "storage_account_name", storage_account_name)
+        if disable_managed_object_aliases is not None:
+            pulumi.set(__self__, "disable_managed_object_aliases", disable_managed_object_aliases)
+        if include_hidden_files is not None:
+            pulumi.set(__self__, "include_hidden_files", include_hidden_files)
         if managed_objects is not None:
             pulumi.set(__self__, "managed_objects", managed_objects)
 
@@ -82,6 +90,30 @@ class AzureBlobFolderArgs:
         pulumi.set(self, "storage_account_name", value)
 
     @property
+    @pulumi.getter(name="disableManagedObjectAliases")
+    def disable_managed_object_aliases(self) -> Optional[pulumi.Input[bool]]:
+        """
+        Disables adding an [alias](https://www.pulumi.com/docs/intro/concepts/resources/options/aliases/) resource option to managed objects in the bucket.
+        """
+        return pulumi.get(self, "disable_managed_object_aliases")
+
+    @disable_managed_object_aliases.setter
+    def disable_managed_object_aliases(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "disable_managed_object_aliases", value)
+
+    @property
+    @pulumi.getter(name="includeHiddenFiles")
+    def include_hidden_files(self) -> Optional[pulumi.Input[bool]]:
+        """
+        Include hidden files ("dotfiles") when synchronizing folders. Defaults to `false`.
+        """
+        return pulumi.get(self, "include_hidden_files")
+
+    @include_hidden_files.setter
+    def include_hidden_files(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "include_hidden_files", value)
+
+    @property
     @pulumi.getter(name="managedObjects")
     def managed_objects(self) -> Optional[pulumi.Input[bool]]:
         """
@@ -100,6 +132,8 @@ class AzureBlobFolder(pulumi.ComponentResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  container_name: Optional[pulumi.Input[str]] = None,
+                 disable_managed_object_aliases: Optional[pulumi.Input[bool]] = None,
+                 include_hidden_files: Optional[pulumi.Input[bool]] = None,
                  managed_objects: Optional[pulumi.Input[bool]] = None,
                  path: Optional[pulumi.Input[str]] = None,
                  resource_group_name: Optional[pulumi.Input[str]] = None,
@@ -110,6 +144,8 @@ class AzureBlobFolder(pulumi.ComponentResource):
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] container_name: The name of the Azure storage container to sync to. Required.
+        :param pulumi.Input[bool] disable_managed_object_aliases: Disables adding an [alias](https://www.pulumi.com/docs/intro/concepts/resources/options/aliases/) resource option to managed objects in the bucket.
+        :param pulumi.Input[bool] include_hidden_files: Include hidden files ("dotfiles") when synchronizing folders. Defaults to `false`.
         :param pulumi.Input[bool] managed_objects: Whether to have Pulumi manage files as individual cloud resources. Defaults to `true`.
         :param pulumi.Input[str] path: The path (relative or fully-qualified) to the folder containing the files to be synced. Required.
         :param pulumi.Input[str] resource_group_name: The name of the Azure resource group that the storage account belongs to. Required.
@@ -139,6 +175,8 @@ class AzureBlobFolder(pulumi.ComponentResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  container_name: Optional[pulumi.Input[str]] = None,
+                 disable_managed_object_aliases: Optional[pulumi.Input[bool]] = None,
+                 include_hidden_files: Optional[pulumi.Input[bool]] = None,
                  managed_objects: Optional[pulumi.Input[bool]] = None,
                  path: Optional[pulumi.Input[str]] = None,
                  resource_group_name: Optional[pulumi.Input[str]] = None,
@@ -160,6 +198,8 @@ class AzureBlobFolder(pulumi.ComponentResource):
             if container_name is None and not opts.urn:
                 raise TypeError("Missing required property 'container_name'")
             __props__.__dict__["container_name"] = container_name
+            __props__.__dict__["disable_managed_object_aliases"] = disable_managed_object_aliases
+            __props__.__dict__["include_hidden_files"] = include_hidden_files
             __props__.__dict__["managed_objects"] = managed_objects
             if path is None and not opts.urn:
                 raise TypeError("Missing required property 'path'")

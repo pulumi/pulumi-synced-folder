@@ -27,3 +27,4 @@ resources:
       bucketName: ${my-bucket-2.bucket}
       acl: public-read
       disableManagedObjectAliases: true
+      includeHiddenFiles: true

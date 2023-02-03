@@ -45,6 +45,10 @@ func NewAzureBlobFolder(ctx *pulumi.Context,
 type azureBlobFolderArgs struct {
 	// The name of the Azure storage container to sync to. Required.
 	ContainerName string `pulumi:"containerName"`
+	// Disables adding an [alias](https://www.pulumi.com/docs/intro/concepts/resources/options/aliases/) resource option to managed objects in the bucket.
+	DisableManagedObjectAliases *bool `pulumi:"disableManagedObjectAliases"`
+	// Include hidden files ("dotfiles") when synchronizing folders. Defaults to `false`.
+	IncludeHiddenFiles *bool `pulumi:"includeHiddenFiles"`
 	// Whether to have Pulumi manage files as individual cloud resources. Defaults to `true`.
 	ManagedObjects *bool `pulumi:"managedObjects"`
 	// The path (relative or fully-qualified) to the folder containing the files to be synced. Required.
@@ -59,6 +63,10 @@ type azureBlobFolderArgs struct {
 type AzureBlobFolderArgs struct {
 	// The name of the Azure storage container to sync to. Required.
 	ContainerName pulumi.StringInput
+	// Disables adding an [alias](https://www.pulumi.com/docs/intro/concepts/resources/options/aliases/) resource option to managed objects in the bucket.
+	DisableManagedObjectAliases pulumi.BoolPtrInput
+	// Include hidden files ("dotfiles") when synchronizing folders. Defaults to `false`.
+	IncludeHiddenFiles pulumi.BoolPtrInput
 	// Whether to have Pulumi manage files as individual cloud resources. Defaults to `true`.
 	ManagedObjects pulumi.BoolPtrInput
 	// The path (relative or fully-qualified) to the folder containing the files to be synced. Required.
@@ -95,7 +103,7 @@ func (i *AzureBlobFolder) ToAzureBlobFolderOutputWithContext(ctx context.Context
 // AzureBlobFolderArrayInput is an input type that accepts AzureBlobFolderArray and AzureBlobFolderArrayOutput values.
 // You can construct a concrete instance of `AzureBlobFolderArrayInput` via:
 //
-//          AzureBlobFolderArray{ AzureBlobFolderArgs{...} }
+//	AzureBlobFolderArray{ AzureBlobFolderArgs{...} }
 type AzureBlobFolderArrayInput interface {
 	pulumi.Input
 
@@ -120,7 +128,7 @@ func (i AzureBlobFolderArray) ToAzureBlobFolderArrayOutputWithContext(ctx contex
 // AzureBlobFolderMapInput is an input type that accepts AzureBlobFolderMap and AzureBlobFolderMapOutput values.
 // You can construct a concrete instance of `AzureBlobFolderMapInput` via:
 //
-//          AzureBlobFolderMap{ "key": AzureBlobFolderArgs{...} }
+//	AzureBlobFolderMap{ "key": AzureBlobFolderArgs{...} }
 type AzureBlobFolderMapInput interface {
 	pulumi.Input
 
