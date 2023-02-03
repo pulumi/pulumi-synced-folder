@@ -41,7 +41,7 @@ type googleCloudFolderArgs struct {
 	BucketName string `pulumi:"bucketName"`
 	// Disables adding an [alias](https://www.pulumi.com/docs/intro/concepts/resources/options/aliases/) resource option to managed objects in the bucket.
 	DisableManagedObjectAliases *bool `pulumi:"disableManagedObjectAliases"`
-	// Include hidden files ("dotfiles") when synchronixing folders. False by default.
+	// Include hidden files ("dotfiles") when synchronizing folders. Defaults to `false`.
 	IncludeHiddenFiles *bool `pulumi:"includeHiddenFiles"`
 	// Whether to have Pulumi manage files as individual cloud resources. Defaults to `true`.
 	ManagedObjects *bool `pulumi:"managedObjects"`
@@ -55,7 +55,7 @@ type GoogleCloudFolderArgs struct {
 	BucketName pulumi.StringInput
 	// Disables adding an [alias](https://www.pulumi.com/docs/intro/concepts/resources/options/aliases/) resource option to managed objects in the bucket.
 	DisableManagedObjectAliases pulumi.BoolPtrInput
-	// Include hidden files ("dotfiles") when synchronixing folders. False by default.
+	// Include hidden files ("dotfiles") when synchronizing folders. Defaults to `false`.
 	IncludeHiddenFiles pulumi.BoolPtrInput
 	// Whether to have Pulumi manage files as individual cloud resources. Defaults to `true`.
 	ManagedObjects pulumi.BoolPtrInput

@@ -27,7 +27,7 @@ class AzureBlobFolderArgs:
         :param pulumi.Input[str] resource_group_name: The name of the Azure resource group that the storage account belongs to. Required.
         :param pulumi.Input[str] storage_account_name: The name of the Azure storage account that the container belongs to. Required.
         :param pulumi.Input[bool] disable_managed_object_aliases: Disables adding an [alias](https://www.pulumi.com/docs/intro/concepts/resources/options/aliases/) resource option to managed objects in the bucket.
-        :param pulumi.Input[bool] include_hidden_files: Include hidden files ("dotfiles") when synchronixing folders. False by default.
+        :param pulumi.Input[bool] include_hidden_files: Include hidden files ("dotfiles") when synchronizing folders. Defaults to `false`.
         :param pulumi.Input[bool] managed_objects: Whether to have Pulumi manage files as individual cloud resources. Defaults to `true`.
         """
         pulumi.set(__self__, "container_name", container_name)
@@ -105,7 +105,7 @@ class AzureBlobFolderArgs:
     @pulumi.getter(name="includeHiddenFiles")
     def include_hidden_files(self) -> Optional[pulumi.Input[bool]]:
         """
-        Include hidden files ("dotfiles") when synchronixing folders. False by default.
+        Include hidden files ("dotfiles") when synchronizing folders. Defaults to `false`.
         """
         return pulumi.get(self, "include_hidden_files")
 
@@ -145,7 +145,7 @@ class AzureBlobFolder(pulumi.ComponentResource):
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] container_name: The name of the Azure storage container to sync to. Required.
         :param pulumi.Input[bool] disable_managed_object_aliases: Disables adding an [alias](https://www.pulumi.com/docs/intro/concepts/resources/options/aliases/) resource option to managed objects in the bucket.
-        :param pulumi.Input[bool] include_hidden_files: Include hidden files ("dotfiles") when synchronixing folders. False by default.
+        :param pulumi.Input[bool] include_hidden_files: Include hidden files ("dotfiles") when synchronizing folders. Defaults to `false`.
         :param pulumi.Input[bool] managed_objects: Whether to have Pulumi manage files as individual cloud resources. Defaults to `true`.
         :param pulumi.Input[str] path: The path (relative or fully-qualified) to the folder containing the files to be synced. Required.
         :param pulumi.Input[str] resource_group_name: The name of the Azure resource group that the storage account belongs to. Required.

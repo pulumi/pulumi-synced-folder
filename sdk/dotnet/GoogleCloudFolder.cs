@@ -52,7 +52,7 @@ namespace Pulumi.SyncedFolder
         public Input<bool>? DisableManagedObjectAliases { get; set; }
 
         /// <summary>
-        /// Include hidden files ("dotfiles") when synchronixing folders. False by default.
+        /// Include hidden files ("dotfiles") when synchronizing folders. Defaults to `false`.
         /// </summary>
         [Input("includeHiddenFiles")]
         public Input<bool>? IncludeHiddenFiles { get; set; }

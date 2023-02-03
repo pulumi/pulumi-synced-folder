@@ -23,7 +23,7 @@ class GoogleCloudFolderArgs:
         :param pulumi.Input[str] bucket_name: The name of the Google Cloud Storage bucket to sync to (e.g., `my-bucket` in `gs://my-bucket`). Required.
         :param pulumi.Input[str] path: The path (relative or fully-qualified) to the folder containing the files to be synced. Required.
         :param pulumi.Input[bool] disable_managed_object_aliases: Disables adding an [alias](https://www.pulumi.com/docs/intro/concepts/resources/options/aliases/) resource option to managed objects in the bucket.
-        :param pulumi.Input[bool] include_hidden_files: Include hidden files ("dotfiles") when synchronixing folders. False by default.
+        :param pulumi.Input[bool] include_hidden_files: Include hidden files ("dotfiles") when synchronizing folders. Defaults to `false`.
         :param pulumi.Input[bool] managed_objects: Whether to have Pulumi manage files as individual cloud resources. Defaults to `true`.
         """
         pulumi.set(__self__, "bucket_name", bucket_name)
@@ -75,7 +75,7 @@ class GoogleCloudFolderArgs:
     @pulumi.getter(name="includeHiddenFiles")
     def include_hidden_files(self) -> Optional[pulumi.Input[bool]]:
         """
-        Include hidden files ("dotfiles") when synchronixing folders. False by default.
+        Include hidden files ("dotfiles") when synchronizing folders. Defaults to `false`.
         """
         return pulumi.get(self, "include_hidden_files")
 
@@ -113,7 +113,7 @@ class GoogleCloudFolder(pulumi.ComponentResource):
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] bucket_name: The name of the Google Cloud Storage bucket to sync to (e.g., `my-bucket` in `gs://my-bucket`). Required.
         :param pulumi.Input[bool] disable_managed_object_aliases: Disables adding an [alias](https://www.pulumi.com/docs/intro/concepts/resources/options/aliases/) resource option to managed objects in the bucket.
-        :param pulumi.Input[bool] include_hidden_files: Include hidden files ("dotfiles") when synchronixing folders. False by default.
+        :param pulumi.Input[bool] include_hidden_files: Include hidden files ("dotfiles") when synchronizing folders. Defaults to `false`.
         :param pulumi.Input[bool] managed_objects: Whether to have Pulumi manage files as individual cloud resources. Defaults to `true`.
         :param pulumi.Input[str] path: The path (relative or fully-qualified) to the folder containing the files to be synced. Required.
         """

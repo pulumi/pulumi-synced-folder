@@ -70,7 +70,7 @@ export interface S3BucketFolderArgs {
      */
     disableManagedObjectAliases?: pulumi.Input<boolean>;
     /**
-     * Include hidden files ("dotfiles") when synchronixing folders. False by default.
+     * Include hidden files ("dotfiles") when synchronizing folders. Defaults to `false`.
      */
     includeHiddenFiles?: pulumi.Input<boolean>;
     /**
