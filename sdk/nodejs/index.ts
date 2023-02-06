@@ -5,15 +5,26 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
 // Export members:
-export * from "./azureBlobFolder";
-export * from "./googleCloudFolder";
-export * from "./provider";
-export * from "./s3bucketFolder";
+export { AzureBlobFolderArgs } from "./azureBlobFolder";
+export type AzureBlobFolder = import("./azureBlobFolder").AzureBlobFolder;
+export const AzureBlobFolder: typeof import("./azureBlobFolder").AzureBlobFolder = null as any;
+utilities.lazyLoad(exports, ["AzureBlobFolder"], () => require("./azureBlobFolder"));
 
-// Import resources to register:
-import { AzureBlobFolder } from "./azureBlobFolder";
-import { GoogleCloudFolder } from "./googleCloudFolder";
-import { S3BucketFolder } from "./s3bucketFolder";
+export { GoogleCloudFolderArgs } from "./googleCloudFolder";
+export type GoogleCloudFolder = import("./googleCloudFolder").GoogleCloudFolder;
+export const GoogleCloudFolder: typeof import("./googleCloudFolder").GoogleCloudFolder = null as any;
+utilities.lazyLoad(exports, ["GoogleCloudFolder"], () => require("./googleCloudFolder"));
+
+export { ProviderArgs } from "./provider";
+export type Provider = import("./provider").Provider;
+export const Provider: typeof import("./provider").Provider = null as any;
+utilities.lazyLoad(exports, ["Provider"], () => require("./provider"));
+
+export { S3BucketFolderArgs } from "./s3bucketFolder";
+export type S3BucketFolder = import("./s3bucketFolder").S3BucketFolder;
+export const S3BucketFolder: typeof import("./s3bucketFolder").S3BucketFolder = null as any;
+utilities.lazyLoad(exports, ["S3BucketFolder"], () => require("./s3bucketFolder"));
+
 
 const _module = {
     version: utilities.getVersion(),
@@ -31,9 +42,6 @@ const _module = {
     },
 };
 pulumi.runtime.registerResourceModule("synced-folder", "index", _module)
-
-import { Provider } from "./provider";
-
 pulumi.runtime.registerResourcePackage("synced-folder", {
     version: utilities.getVersion(),
     constructProvider: (name: string, type: string, urn: string): pulumi.ProviderResource => {
