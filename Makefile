@@ -1,4 +1,4 @@
-VERSION         := 0.0.9
+VERSION         := 0.10.0
 
 PACK            := synced-folder
 PROJECT         := github.com/pulumi/pulumi-${PACK}
