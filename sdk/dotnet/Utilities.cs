@@ -74,7 +74,7 @@ namespace Pulumi.SyncedFolder
         }
     }
 
-    internal sealed class SyncedFolderResourceTypeAttribute : Pulumi.ResourceTypeAttribute
+    internal sealed class SyncedFolderResourceTypeAttribute : global::Pulumi.ResourceTypeAttribute
     {
         public SyncedFolderResourceTypeAttribute(string type) : base(type, Utilities.Version)
         {

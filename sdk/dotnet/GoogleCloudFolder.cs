@@ -10,7 +10,7 @@ using Pulumi.Serialization;
 namespace Pulumi.SyncedFolder
 {
     [SyncedFolderResourceType("synced-folder:index:GoogleCloudFolder")]
-    public partial class GoogleCloudFolder : Pulumi.ComponentResource
+    public partial class GoogleCloudFolder : global::Pulumi.ComponentResource
     {
         /// <summary>
         /// Create a GoogleCloudFolder resource with the given unique name, arguments, and options.
@@ -37,7 +37,7 @@ namespace Pulumi.SyncedFolder
         }
     }
 
-    public sealed class GoogleCloudFolderArgs : Pulumi.ResourceArgs
+    public sealed class GoogleCloudFolderArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// The name of the Google Cloud Storage bucket to sync to (e.g., `my-bucket` in `gs://my-bucket`). Required.
@@ -72,5 +72,6 @@ namespace Pulumi.SyncedFolder
         public GoogleCloudFolderArgs()
         {
         }
+        public static new GoogleCloudFolderArgs Empty => new GoogleCloudFolderArgs();
     }
 }

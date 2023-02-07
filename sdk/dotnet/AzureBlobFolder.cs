@@ -10,7 +10,7 @@ using Pulumi.Serialization;
 namespace Pulumi.SyncedFolder
 {
     [SyncedFolderResourceType("synced-folder:index:AzureBlobFolder")]
-    public partial class AzureBlobFolder : Pulumi.ComponentResource
+    public partial class AzureBlobFolder : global::Pulumi.ComponentResource
     {
         /// <summary>
         /// Create a AzureBlobFolder resource with the given unique name, arguments, and options.
@@ -37,7 +37,7 @@ namespace Pulumi.SyncedFolder
         }
     }
 
-    public sealed class AzureBlobFolderArgs : Pulumi.ResourceArgs
+    public sealed class AzureBlobFolderArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// The name of the Azure storage container to sync to. Required.
@@ -84,5 +84,6 @@ namespace Pulumi.SyncedFolder
         public AzureBlobFolderArgs()
         {
         }
+        public static new AzureBlobFolderArgs Empty => new AzureBlobFolderArgs();
     }
 }

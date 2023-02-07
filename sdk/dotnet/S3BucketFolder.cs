@@ -10,7 +10,7 @@ using Pulumi.Serialization;
 namespace Pulumi.SyncedFolder
 {
     [SyncedFolderResourceType("synced-folder:index:S3BucketFolder")]
-    public partial class S3BucketFolder : Pulumi.ComponentResource
+    public partial class S3BucketFolder : global::Pulumi.ComponentResource
     {
         /// <summary>
         /// Create a S3BucketFolder resource with the given unique name, arguments, and options.
@@ -37,7 +37,7 @@ namespace Pulumi.SyncedFolder
         }
     }
 
-    public sealed class S3BucketFolderArgs : Pulumi.ResourceArgs
+    public sealed class S3BucketFolderArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// The AWS [Canned ACL](https://docs.aws.amazon.com/AmazonS3/latest/userguide/acl-overview.html#canned-acl) to apply to each file (e.g., `public-read`). Required.
@@ -78,5 +78,6 @@ namespace Pulumi.SyncedFolder
         public S3BucketFolderArgs()
         {
         }
+        public static new S3BucketFolderArgs Empty => new S3BucketFolderArgs();
     }
 }
