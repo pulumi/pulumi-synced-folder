@@ -1,4 +1,4 @@
-VERSION         := 0.10.1
+VERSION         := $(shell pulumictl get version)
 
 PACK            := synced-folder
 PROJECT         := github.com/pulumi/pulumi-${PACK}
