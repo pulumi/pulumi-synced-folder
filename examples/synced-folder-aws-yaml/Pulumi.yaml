@@ -6,12 +6,15 @@ resources:
   my-bucket:
     type: aws:s3:Bucket
     properties:
-      acl: public-read
+      acl: private
 
   synced-folder:
     type: synced-folder:index:S3BucketFolder
     properties:
       path: ./my-folder
       bucketName: ${my-bucket.bucket}
-      acl: public-read
-      includeHiddenFiles: true,
+      acl: private
+      includeHiddenFiles: true
+
+outputs:
+  bucketName: ${my-bucket.id}

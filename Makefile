@@ -19,6 +19,7 @@ install:: install_provider install_dotnet_sdk install_nodejs_sdk
 # Ensure all dependencies are installed
 ensure::
 	yarn install
+	yarn --cwd provider/cmd/pulumi-resource-synced-folder install
 
 # Provider
 build_provider:: ensure
@@ -101,7 +102,7 @@ build_nodejs_sdk:: gen_nodejs_sdk
 		yarn install && \
 		yarn run tsc --version && \
 		yarn run tsc && \
-		cp -R scripts/ bin && \
+		cp -R scripts bin && \
 		cp ../../README.md ../../LICENSE package.json yarn.lock ./bin/ && \
 		sed -i.bak -e "s/\$${VERSION}/$(VERSION)/g" ./bin/package.json && \
 		rm ./bin/package.json.bak
