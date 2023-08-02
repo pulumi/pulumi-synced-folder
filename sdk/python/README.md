@@ -43,7 +43,7 @@ resources:
       website:
         indexDocument: index.html
         errorDocument: error.html
-  
+
   # 👇
   synced-bucket-folder:
     type: synced-folder:index:S3BucketFolder
@@ -121,10 +121,10 @@ resources:
 
   gcp-bucket-iam-binding:
     type: gcp:storage:BucketIAMBinding
-    properties: 
+    properties:
       bucket: ${gcp-bucket.name}
       role: roles/storage.objectViewer
-      members: 
+      members:
         - allUsers
 
   # 👇
@@ -143,32 +143,32 @@ outputs:
 
 The following input properties are common to all three resource types:
 
-| Property | Type | Description | 
-| -------- | ---- | ----------- | 
-| `path` | `string` | The path (relative or fully-qualified) to the folder containing the files to be synced. Required. | 
+| Property | Type | Description |
+| -------- | ---- | ----------- |
+| `path` | `string` | The path (relative or fully-qualified) to the folder containing the files to be synced. Required. |
 | `managedObjects` | `boolean` | Whether to have Pulumi manage files as individual cloud resources. Defaults to `true`. See below for details. |
 
 Additional resource-specific properties are listed below.
 
 ### `S3BucketFolder` properties
 
-| Property | Type | Description | 
-| -------- | ---- | ----------- | 
+| Property | Type | Description |
+| -------- | ---- | ----------- |
 | `bucketName` | `string` | The name of the S3 bucket to sync to (e.g., `my-bucket` in `s3://my-bucket`). Required. |
 | `acl` | `string` | The AWS [Canned ACL](https://docs.aws.amazon.com/AmazonS3/latest/userguide/acl-overview.html#canned-acl) to apply to each file (e.g., `public-read`). Required. |
 
 ### `AzureBlobFolder` properties
 
-| Property | Type | Description | 
-| -------- | ---- | ----------- | 
+| Property | Type | Description |
+| -------- | ---- | ----------- |
 | `containerName` | `string` | The name of the Azure storage container to sync to. Required. |
 | `storageAccountName` | `string` | The name of the Azure storage account that the container belongs to. Required. |
 | `resourceGroupName` | `string` | The name of the Azure resource group that the storage account belongs to. Required. |
 
 ### `GoogleCloudFolder` properties
 
-| Property | Type | Description | 
-| -------- | ---- | ----------- | 
+| Property | Type | Description |
+| -------- | ---- | ----------- |
 | `bucketName` | `string` | The name of the Google Cloud Storage bucket to sync to (e.g., `my-bucket` in `gs://my-bucket`). Required. |
 
 ## Notes
@@ -185,11 +185,11 @@ The component does not yet support switching seamlessly between `managedObjects:
 resources:
 
   # The original bucket and synced-folder resources, using managed file objects.
-  # 
+  #
   # my-first-bucket:
   #   type: aws:s3:Bucket
   #   properties:
-  #     acl: public-read  
+  #     acl: public-read
   #     website:
   #       indexDocument: index.html
   #       errorDocument: error.html
@@ -216,7 +216,7 @@ resources:
       path: ./stuff
       bucketName: ${changed-my-mind-bucket.bucket}
       acl: public-read
-      managedObjects: false 
+      managedObjects: false
 
 outputs:
 

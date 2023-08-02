@@ -44,7 +44,7 @@ async function constructS3BucketFolder(name: string, inputs: pulumi.Inputs,
     return {
         urn: folder.urn,
         state: {
-            
+
         },
     };
 }
@@ -55,7 +55,7 @@ async function constructAzureBlobFolder(name: string, inputs: pulumi.Inputs,
     return {
         urn: folder.urn,
         state: {
-            
+
         },
     };
 }
@@ -66,7 +66,7 @@ async function constructGoogleCloudFolder(name: string, inputs: pulumi.Inputs,
     return {
         urn: folder.urn,
         state: {
-            
+
         },
     };
 }

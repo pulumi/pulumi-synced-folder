@@ -38,6 +38,7 @@ def readme():
 
 
 setup(name='pulumi_synced_folder',
+      python_requires='>=3.7',
       version=VERSION,
       description="A Pulumi component that synchronizes a local folder to Amazon S3, Azure Blob Storage, or Google Cloud Storage.",
       long_description=readme(),

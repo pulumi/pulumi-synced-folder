@@ -7,7 +7,8 @@ import (
 	"context"
 	"reflect"
 
-	"github.com/pkg/errors"
+	"errors"
+	"github.com/pulumi/pulumi-synced-folder/sdk/go/synced-folder/internal"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
@@ -34,6 +35,7 @@ func NewAzureBlobFolder(ctx *pulumi.Context,
 	if args.StorageAccountName == nil {
 		return nil, errors.New("invalid value for required argument 'StorageAccountName'")
 	}
+	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource AzureBlobFolder
 	err := ctx.RegisterRemoteComponentResource("synced-folder:index:AzureBlobFolder", name, args, &resource, opts...)
 	if err != nil {
