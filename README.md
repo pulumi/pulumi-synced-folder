@@ -20,7 +20,7 @@ Given a cloud-storage bucket and the path to a local folder, the component synch
 
 * By delegating sync responsibility to a cloud provider CLI (e.g., [`aws`](https://aws.amazon.com/cli/), [`az`](https://docs.microsoft.com/en-us/cli/azure/), or [`gcloud`/`gsutil`](https://cloud.google.com/storage/docs/gsutil)). This behavior is enabled by setting the `managedObjects` input property to `false` and ensuring the relevant CLI tool is installed alongside `pulumi`.
 
-The former approach &mdash; having Pulumi manage your resources for you &mdash; is generally preferable, but in some cases, for example  a website consisting of thousands of files, it may not be the best fit. This component lets you choose the approach that works best for you, without having to brek out of your Pulumi program or workflow.
+The former approach &mdash; having Pulumi manage your resources for you &mdash; is generally preferable, but in some cases, for example  a website consisting of thousands of files, it may not be the best fit (note that when using this approach with Pulumi Cloud as your backend, it will increase the number of resources under management and could affect your pricing). This component lets you choose the approach that works best for you, without having to break out of your Pulumi program or workflow.
 
 Below are a few examples in Pulumi YAML, each of which assumes the existence of a `site` folder containing one or more files to be uploaded. See the [examples](./examples) folder for additional languages and scenarios.
 
