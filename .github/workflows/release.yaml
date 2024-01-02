@@ -43,6 +43,16 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{matrix.nodeversion}}
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-region: us-east-2
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          role-duration-seconds: 7200
+          role-external-id: upload-pulumi-release
+          role-session-name: ${{ env.PROVIDER}}@githubActions
+          role-to-assume: ${{ secrets.AWS_UPLOAD_ROLE_ARN }}
       - uses: MOZGIII/install-ldid-action@v1
         with:
           tag: v2.1.5-procursus2
@@ -55,6 +65,8 @@ jobs:
       - run: make build_provider
       - name: Create Provider Binaries
         run: make dist
+      - name: Upload Provider Binaries
+        run: aws s3 cp dist s3://get.pulumi.com/releases/plugins/ --recursive
       - name: Create GH Release
         uses: softprops/action-gh-release@v1
         with:
