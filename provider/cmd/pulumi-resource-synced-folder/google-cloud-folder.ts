@@ -35,7 +35,7 @@ export class GoogleCloudFolder extends pulumi.ComponentResource {
         args.includeHiddenFiles = args.includeHiddenFiles ?? false;
 
         const folderContents = utils.getFolderContents(args.path, args.includeHiddenFiles);
-        const syncCommand = pulumi.interpolate`gcloud -q storage rsync "${args.path}" "gs://${args.bucketName}"`;
+        const syncCommand = pulumi.interpolate`gcloud -q storage rsync -r "${args.path}" "gs://${args.bucketName}"`;
         const deleteCommand = pulumi.interpolate`gcloud storage -q rm "gs://${args.bucketName}/**"`;
 
         if (args.managedObjects) {
