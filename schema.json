@@ -41,6 +41,10 @@
                 "includeHiddenFiles": {
                     "type": "boolean",
                     "description": "Include hidden files (\"dotfiles\") when synchronizing folders. Defaults to `false`."
+                },
+                "cacheControl": {
+                    "type": "string",
+                    "description": "Set Cache-Control headers for the objects being uploaded to S3. Defaults to nothing (no cache control headers)"
                 }
             },
             "requiredInputs": [
