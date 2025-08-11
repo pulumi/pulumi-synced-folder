@@ -1,0 +1,20 @@
+[project]
+  name = "pulumi_synced_folder"
+  description = "A Pulumi component that synchronizes a local folder to Amazon S3, Azure Blob Storage, or Google Cloud Storage."
+  dependencies = ["parver>=0.2.1", "pulumi>=3.0.0,<4.0.0", "semver>=2.8.1", "typing-extensions>=4.11,<5; python_version < \"3.11\""]
+  keywords = ["pulumi", "aws", "azure", "gcp", "category/cloud", "kind/component"]
+  readme = "README.md"
+  requires-python = ">=3.9"
+  version = "0.0.0"
+  [project.urls]
+    Homepage = "https://pulumi.com"
+    Repository = "https://github.com/pulumi/pulumi-synced-folder"
+
+[build-system]
+  requires = ["setuptools>=61.0"]
+  build-backend = "setuptools.build_meta"
+
+[tool]
+  [tool.setuptools]
+    [tool.setuptools.package-data]
+      pulumi_synced_folder = ["py.typed", "pulumi-plugin.json"]
