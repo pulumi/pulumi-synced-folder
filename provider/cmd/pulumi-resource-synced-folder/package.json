@@ -2,14 +2,14 @@
     "version": "${VERSION}",
     "bin": "bin/index.js",
     "dependencies": {
-        "@pulumi/aws": "^5.0.0",
-        "@pulumi/azure-native": "^1.0.0",
-        "@pulumi/command": "^0.8.0",
-        "@pulumi/gcp": "^6.0.0",
-        "@pulumi/pulumi": "^3.0.0",
-        "@types/glob": "^7.0.0",
+        "@pulumi/aws": "^7.3.1",
+        "@pulumi/azure-native": "^3.6.1",
+        "@pulumi/command": "^1.1.0",
+        "@pulumi/gcp": "^8.39.0",
+        "@pulumi/pulumi": "^3.188.0",
+        "@types/glob": "^9.0.0",
         "@types/mime": "^3.0.0",
-        "glob": "^8.0.0",
+        "glob": "^11.0.3",
         "mime": "^3.0.0"
     },
     "devDependencies": {

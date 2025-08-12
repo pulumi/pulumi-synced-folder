@@ -102,7 +102,6 @@ build_nodejs_sdk:: gen_nodejs_sdk
 		yarn install && \
 		yarn run tsc --version && \
 		yarn run tsc && \
-		cp -R scripts bin && \
 		cp ../../README.md ../../LICENSE package.json yarn.lock ./bin/ && \
 		sed -i.bak -e "s/\$${VERSION}/$(VERSION)/g" ./bin/package.json && \
 		rm ./bin/package.json.bak
@@ -121,10 +120,9 @@ gen_python_sdk::
 build_python_sdk:: PYPI_VERSION := ${VERSION}
 build_python_sdk:: gen_python_sdk
 	cd sdk/python/ && \
-		python3 setup.py clean --all 2>/dev/null && \
+		rm -rf build dist ./*.egg-info && \
 		rm -rf ./bin/ ../python.bin/ && cp -R . ../python.bin && mv ../python.bin ./bin && \
-		sed -i.bak -e 's/^VERSION = .*/VERSION = "$(PYPI_VERSION)"/g' -e 's/^PLUGIN_VERSION = .*/PLUGIN_VERSION = "$(VERSION)"/g' ./bin/setup.py && \
-		rm ./bin/setup.py.bak && \
-		cd ./bin && python3 setup.py build sdist
-
+		sed -i.bak -e 's/^version = .*/version = "$(PYPI_VERSION)"/g' ./bin/pyproject.toml && \
+		rm ./bin/pyproject.toml.bak && \
+		cd ./bin && python3 -m venv venv && ./venv/bin/pip install build && ./venv/bin/python3 -m build --sdist
 link:
