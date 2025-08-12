@@ -24,6 +24,7 @@ export interface S3BucketFolderArgs {
     managedObjects?: boolean;
     disableManagedObjectAliases?: boolean;
     includeHiddenFiles?: boolean;
+    cacheControl?: string;
 }
 
 export class S3BucketFolder extends pulumi.ComponentResource {
@@ -37,7 +38,7 @@ export class S3BucketFolder extends pulumi.ComponentResource {
 
         const folderContents = utils.getFolderContents(args.path, args.includeHiddenFiles);
         const region = pulumi.output(aws.getRegion(undefined, { parent: this }));
-        const syncCommand = pulumi.interpolate`aws s3 sync "${args.path}" "s3://${args.bucketName}" --acl "${args.acl}" --region "${region.name}" --delete --only-show-errors`;
+        let syncCommand = pulumi.interpolate`aws s3 sync "${args.path}" "s3://${args.bucketName}" --acl "${args.acl}" --region "${region.name}" --delete --only-show-errors`;
         const deleteCommand = pulumi.interpolate`aws s3 rm "s3://${args.bucketName}" --include "*" --recursive --only-show-errors`;
 
         if (args.managedObjects) {
@@ -55,6 +56,7 @@ export class S3BucketFolder extends pulumi.ComponentResource {
                     bucket: args.bucketName,
                     contentType: file.contentType,
                     source: new pulumi.asset.FileAsset(file.fullPath),
+                    cacheControl: args.cacheControl ?? undefined
                 }, { parent: this, aliases });
             });
 
@@ -64,6 +66,11 @@ export class S3BucketFolder extends pulumi.ComponentResource {
                 aliases = [{
                     name: "sync-command",
                 }];
+            }
+
+            const includeCacheControl = args.cacheControl ?? false;
+            if (includeCacheControl) {
+                syncCommand = pulumi.interpolate` --cache-control ${args.cacheControl}`
             }
 
             new command.local.Command(`${name}-sync-command`, {
