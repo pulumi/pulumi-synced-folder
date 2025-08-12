@@ -72,7 +72,7 @@ jobs:
       fail-fast: true
       matrix:
         nodeversion:
-          - 18.x
+          - 20.x
   publish_sdk:
     name: Publish SDKs
     runs-on: ubuntu-latest
