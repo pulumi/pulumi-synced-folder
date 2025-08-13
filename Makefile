@@ -122,7 +122,8 @@ build_python_sdk:: gen_python_sdk
 	cd sdk/python/ && \
 		rm -rf build dist ./*.egg-info && \
 		rm -rf ./bin/ ../python.bin/ && cp -R . ../python.bin && mv ../python.bin ./bin && \
-		sed -i.bak -e 's/^version = .*/version = "$(PYPI_VERSION)"/g' ./bin/pyproject.toml && \
+		echo "Building Pythong SDK @ ${PYPI_VERSION}" && \
+		sed -i.bak -E "/^\[project\]/,/^\[[^]]+\]/{ s/^([[:space:]]*)version[[:space:]]*=.*/\1version = \"${PYPI_VERSION}\"/; }" ./bin/pyproject.toml && \
 		rm ./bin/pyproject.toml.bak && \
 		cd ./bin && python3 -m venv venv && ./venv/bin/pip install build && ./venv/bin/python3 -m build --sdist
 link:
