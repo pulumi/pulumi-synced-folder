@@ -192,8 +192,8 @@ github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZN
 github.com/prometheus/client_model v0.0.0-20190812154241-14fe0d1b01d4/go.mod h1:xMI15A0UPsDsEKsMN9yxemIoYk6Tm2C1GtYGdfGttqA=
 github.com/pulumi/appdash v0.0.0-20231130102222-75f619a67231 h1:vkHw5I/plNdTr435cARxCW6q9gc0S/Yxz7Mkd38pOb0=
 github.com/pulumi/appdash v0.0.0-20231130102222-75f619a67231/go.mod h1:murToZ2N9hNJzewjHBgfFdXhZKjY3z5cYC1VXk+lbFE=
-github.com/pulumi/pulumi-gcp/sdk/v10 v10.0.0-rc.1 h1:3Mz7MDuWxRNnLeO7mGggOMynfv6k73Ni85wcrVSxVHA=
-github.com/pulumi/pulumi-gcp/sdk/v10 v10.0.0-rc.1/go.mod h1:Z4BpaqORULmROYG9FVZaRQj+ARKgo2fRiMsBJh0knas=
+github.com/pulumi/pulumi-gcp/sdk/v10 v10.0.0 h1:w8+klJRLfEqf9CfwzkqwKRAt+Pi6JZ9e4ZSUjRJkYYs=
+github.com/pulumi/pulumi-gcp/sdk/v10 v10.0.0/go.mod h1:Z4BpaqORULmROYG9FVZaRQj+ARKgo2fRiMsBJh0knas=
 github.com/pulumi/pulumi-synced-folder/sdk v0.0.8 h1:9Q/5cI3ct14V7VlBc/v8Re6Lpsl+lDHHO2vNeoTgHzU=
 github.com/pulumi/pulumi-synced-folder/sdk v0.0.8/go.mod h1:pnxL8Ms97JBx8uiB2h5h6Eqt8CSx7b8vw/MH+OddP6M=
 github.com/pulumi/pulumi/sdk/v3 v3.263.0 h1:hj86JpRgRvtL2Fy0nR+zx2bT6LMMvAn3EK+3L/f3cEo=
