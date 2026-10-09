@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/pulumi/pulumi-gcp/sdk/v6/go/gcp/storage"
+	"github.com/pulumi/pulumi-gcp/sdk/v10/go/gcp/storage"
 	synced "github.com/pulumi/pulumi-synced-folder/sdk/go/synced-folder"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
