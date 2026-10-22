@@ -29,11 +29,11 @@ jobs:
         id: esc-secrets
         uses: pulumi/esc-action@v1
       - name: Checkout Repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Unshallow clone for tags
         run: git fetch --prune --unshallow --tags
       - name: Setup Node
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v4
         with:
           node-version: ${{matrix.nodeversion}}
       - name: Configure AWS Credentials
@@ -83,11 +83,11 @@ jobs:
         id: esc-secrets
         uses: pulumi/esc-action@v1
       - name: Checkout Repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Unshallow clone for tags
         run: git fetch --prune --unshallow --tags
       - name: Install Go
-        uses: actions/setup-go@v2
+        uses: actions/setup-go@v5
         with:
           go-version: ${{ matrix.goversion }}
       - name: Install pulumictl
@@ -97,16 +97,16 @@ jobs:
       - name: Install Pulumi CLI
         uses: pulumi/action-install-pulumi-cli@v2.0.0
       - name: Setup Node
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v4
         with:
           node-version: ${{matrix.nodeversion}}
           registry-url: ${{env.NPM_REGISTRY_URL}}
       - name: Setup DotNet
-        uses: actions/setup-dotnet@v1
+        uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: ${{matrix.dotnetverson}}
+          dotnet-version: ${{matrix.dotnetversion}}
       - name: Setup Python
-        uses: actions/setup-python@v1
+        uses: actions/setup-python@v5
         with:
           python-version: ${{matrix.pythonversion}}
       - name: Build SDK
@@ -147,7 +147,7 @@ jobs:
       fail-fast: true
       matrix:
         dotnetversion:
-          - 3.1.301
+          - 8.0.x
         goversion:
           - 1.23.x
         language:
@@ -158,4 +158,4 @@ jobs:
         nodeversion:
           - 22.x
         pythonversion:
-          - "3.10"
+          - "3.11.15"
