@@ -30,6 +30,9 @@ build_provider:: ensure
        		cp package.json schema.json ./bin && \
        		sed -i.bak -e "s/\$${VERSION}/$(VERSION)/g" bin/package.json
 
+test_provider:: build_provider
+	cd provider/cmd/${PROVIDER}/ && node --test test/utils.test.js
+
 install_provider:: PKG_ARGS := --no-bytecode --public-packages "*" --public
 install_provider:: build_provider
 	cd provider/cmd/${PROVIDER}/ && \
